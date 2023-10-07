@@ -267,6 +267,22 @@ footer .input-group-text {
   right: 10px;
 }
 
+.product-card .product-image > img:last-child {
+  display: none;
+}
+
+.product-card:hover .product-image > img:first-child {
+  display: none;
+}
+
+.product-card:hover .product-image > img:last-child {
+  display: block;
+}
+
+.product-card .product-image img {
+  object-fit: contain;
+}
+
 .product-card h6.brand {
   color: var(--color-bf4800);
   font-size: 13px;
@@ -292,5 +308,12 @@ footer .input-group-text {
   top: 3%;
   right: 10px;
 }
-
 /* Product Card */
+
+/*Special Product Card */
+.special-product-card {
+  padding: 10px;
+  background-color: white;
+  border-radius: 12px;
+}
+/*Special Product Card */

@@ -5,14 +5,23 @@ import { Link } from "react-router-dom";
 const ProductCard = () => {
   return (
     <div className="col-3">
-      <div className="product-card position-relative">
+      <Link className="product-card position-relative">
         <div className="wishlist-icon position-absolute">
-            <Link>
+          <Link>
             <img src="/images/wish.svg" alt="wishlist" />
-            </Link>
+          </Link>
         </div>
-        <div className="product-image">
-          <img src="/images/watch.jpg" alt="product image" />
+        <div className="product-image h-auto">
+          <img
+            src="/images/watch.jpg"
+            alt="product image"
+            className="img-fluid"
+          />
+          <img
+            src="/images/watch2.png"
+            alt="product image"
+            className="img-fluid"
+          />
         </div>
         <div className="product-details">
           <h6 className="brand">Apple</h6>
@@ -39,7 +48,7 @@ const ProductCard = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

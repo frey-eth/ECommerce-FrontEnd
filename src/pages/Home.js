@@ -3,6 +3,7 @@ import Marquee from "react-fast-marquee";
 import { Link } from "react-router-dom";
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
+import SpecialProduct from "../components/SpecialProduct";
 
 const Home = () => {
   return (
@@ -152,7 +153,11 @@ const Home = () => {
                     <h6>Smart Watch</h6>
                     <p>10 Items</p>
                   </div>
-                  <img src="/images/watch.jpg" alt="watch" />
+                  <img
+                    src="/images/watch.jpg"
+                    alt="watch"
+                    className="img-fluid"
+                  />
                 </div>
                 <div className="category d-flex gap-30 align-items-center">
                   <div>
@@ -163,6 +168,33 @@ const Home = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+      <section className="featured-wrapper py-5 home-wrapper-2">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="section-heading">Products</h3>
+            </div>
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+          </div>
+        </div>
+      </section>
+      <section className="special-wrapper py-5 home-wrapper-2">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="special-heading">Special Products</h3>
+            </div>
+          </div>
+          <div className="row justify-content-lg-between">
+            <SpecialProduct />
+            <SpecialProduct />
+            <SpecialProduct />
           </div>
         </div>
       </section>
@@ -199,19 +231,6 @@ const Home = () => {
                 </Marquee>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <section className="blog-wrapper py-5 home-wrapper-2">
-        <div className="container-xxl">
-          <div className="row">
-            <div className="col-12">
-              <h3 className="section-heading">Products</h3>
-            </div>
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
           </div>
         </div>
       </section>
