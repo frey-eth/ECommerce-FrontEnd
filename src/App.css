@@ -43,6 +43,7 @@ body {
   --color-232f3e: #232f3e;
   --color-bf4800: #bf4800;
   --color-f5f5f7: #f5f5f7;
+  --color-ededed: #ededed;
 }
 a {
   text-decoration: none;
@@ -176,7 +177,7 @@ footer .input-group-text {
   font-size: 22px;
   font-weight: 500;
   line-height: 34px;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
   text-transform: none;
 }
 
@@ -188,14 +189,36 @@ footer .input-group-text {
 }
 
 .small-banner {
-  width: 49%;
+  --s: 49%;
+  width: var(--s);
+  transition: 0.2s;
 }
-/* Home Wrapped 1 */
+.small-banner:hover {
+  transform: scale(1.05);
+}
 
-/* Home Wrapped 2 */
 .home-wrapper-2 {
-  background-color: var(--color-f5f5f7);
+  background-color: #f5f5f7;
 }
 /* Home Wrapped 2 */
+
+/* Categories section */
+.categories {
+  padding: 15px;
+  background-color: white;
+  box-shadow: 0 0 10px #0000001a;
+}
+
+.categories > div {
+  width: 24%;
+}
+
+.categories > div > div {
+  width: 60%;
+}
+
+
+
+/* Categories section */
 
 /* HOME PAGE */
