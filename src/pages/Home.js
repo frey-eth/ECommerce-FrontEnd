@@ -191,7 +191,7 @@ const Home = () => {
               <h3 className="special-heading">Special Products</h3>
             </div>
           </div>
-          <div className="row justify-content-lg-between">
+          <div className="row d-flex">
             <SpecialProduct />
             <SpecialProduct />
             <SpecialProduct />
