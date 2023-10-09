@@ -28,7 +28,9 @@ export const Header = () => {
           <div className="row align-items-center">
             <div className="col-2">
               <h2>
-                <Link className="text-white">Amazune</Link>
+                <Link className="text-white" to="/">
+                  Amazune
+                </Link>
               </h2>
             </div>
             <div className="col-5">
@@ -128,7 +130,7 @@ export const Header = () => {
                     <NavLink className="text-white" to="/">
                       Home
                     </NavLink>
-                    <NavLink className="text-white" to="/">
+                    <NavLink className="text-white" to="/store">
                       Our Store
                     </NavLink>
                     <NavLink className="text-white" to="/">
