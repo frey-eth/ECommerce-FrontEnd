@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
+import Swiper from "swiper";
 
 const Home = () => {
   return (
@@ -188,7 +189,60 @@ const Home = () => {
         <div className="container-xxl">
           <div className="row">
             <div className="col-3">
-              <div className="famous-card bg-dark"></div>
+              <div className="famous-card text-white position-relative">
+                <img
+                  src="/images/famous.jpg"
+                  alt="famous"
+                  className="img-fluid"
+                />
+                <div className="famous-content position-absolute">
+                  <h5>Big Screen</h5>
+                  <h6>Smart Watch Series 7</h6>
+                  <p>From $399 or 16.62/mo. for 24 mo.</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="famous-card text-white position-relative">
+                <img
+                  src="/images/famous.jpg"
+                  alt="famous"
+                  className="img-fluid"
+                />
+                <div className="famous-content position-absolute">
+                  <h5>Big Screen</h5>
+                  <h6>Smart Watch Series 7</h6>
+                  <p>From $399 or 16.62/mo. for 24 mo.</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="famous-card text-white position-relative">
+                <img
+                  src="/images/famous.jpg"
+                  alt="famous"
+                  className="img-fluid"
+                />
+                <div className="famous-content position-absolute">
+                  <h5>Big Screen</h5>
+                  <h6>Smart Watch Series 7</h6>
+                  <p>From $399 or 16.62/mo. for 24 mo.</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="famous-card text-white position-relative">
+                <img
+                  src="/images/famous.jpg"
+                  alt="famous"
+                  className="img-fluid"
+                />
+                <div className="famous-content position-absolute">
+                  <h5>Big Screen</h5>
+                  <h6>Smart Watch Series 7</h6>
+                  <p>From $399 or 16.62/mo. for 24 mo.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -203,7 +257,6 @@ const Home = () => {
           <div className="row">
             <SpecialProduct />
             <SpecialProduct />
-            <SpecialProduct />
           </div>
         </div>
       </section>
@@ -214,9 +267,6 @@ const Home = () => {
               <h3 className="section-heading">Our Popular Products</h3>
             </div>
             <div className="row">
-              <div className="col-2"></div>
-              <div className="col-2"></div>
-
               <ProductCard />
               <ProductCard />
               <ProductCard />

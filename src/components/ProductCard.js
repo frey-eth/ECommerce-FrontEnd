@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const ProductCard = () => {
   return (
-    <div className="col-2">
+    <div className="col-3">
       <Link className="product-card position-relative">
         <div className="wishlist-icon position-absolute">
           <Link>
