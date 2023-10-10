@@ -339,12 +339,43 @@ footer .input-group-text {
   font-weight: 500;
 }
 
-.famous-content p{
+.famous-content p {
   font-size: 16px;
   list-style: 24px;
   font-weight: 100;
 }
-.famous-card img{
+.famous-card img {
   border-radius: 30px;
 }
 /* Famous card */
+
+/* Our Store */
+.filter-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.filter-title {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--color-1c1c1b);
+  margin-bottom: 20px;
+}
+
+.filter-card ul {
+  list-style-type: none;
+  font-size: 13px;
+  line-height: 30px;
+  color: var(--color-777777);
+  cursor: pointer;
+}
+
+.sub-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-1c1c1b);
+  margin-bottom: 15px;
+}
+/* Our Store */

@@ -102,7 +102,7 @@ export const Header = () => {
                       aria-expanded="false"
                     >
                       <img src="/images/menu.svg" />
-                      <span className="me-5 d-inline-block">
+                      <span className="me-5 d-inline-block mx-3">
                         Shop Categories
                       </span>
                     </button>
