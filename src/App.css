@@ -353,7 +353,7 @@ footer .input-group-text {
 .filter-card {
   background-color: white;
   border-radius: 10px;
-  padding: 10px 15px;
+  padding: 10px 15px 25px;
 }
 
 .filter-title {
@@ -364,7 +364,8 @@ footer .input-group-text {
   margin-bottom: 20px;
 }
 
-.filter-card ul {
+.filter-card ul,
+.filter-card .form-check-label {
   list-style-type: none;
   font-size: 13px;
   line-height: 30px;
@@ -372,10 +373,94 @@ footer .input-group-text {
   cursor: pointer;
 }
 
+.filter-card .form-check-input:checked {
+  background-color: var(--color-febd69);
+}
+
+.filter-card .form-check-input:focus {
+  box-shadow: none;
+  border-color: inherit;
+}
+
 .sub-title {
   font-size: 14px;
   font-weight: 600;
   color: var(--color-1c1c1b);
   margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+.colors {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.colors li {
+  width: 20px;
+  height: 20px;
+  background-color: green;
+  border-radius: 50%;
+}
+
+.random-products h5 {
+  font-size: 14px;
+}
+
+.random-products:first-child {
+  border-bottom: 1px solid var(--color-3b4149);
+}
+
+.filter-sort-grid {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.grid img {
+  height: 35px;
+  width: 35px;
+  background-color: #f2f2f2;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.gr-12 {
+  width: 100%;
+}
+
+.gr-12 .product-card {
+  display: flex;
+  gap: 20px;
+}
+
+.gr-12 .action-bar {
+  top: 13%;
+}
+
+.gr-6 {
+  width: 49.34%;
+}
+
+.gr-6 .product-card {
+  display: flex;
+  gap: 20px;
+}
+
+.gr-4 {
+  width: 32.55%;
+}
+.gr-4 .product-image {
+  width: 100%;
+}
+
+.gr-4 .product-image img{
+  margin: auto;
+  display: block;
+}
+
+.gr-3 {
+  width: 24.2%;
 }
 /* Our Store */
