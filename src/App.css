@@ -504,37 +504,79 @@ footer .input-group-text {
 /*  Contact page */
 
 /* Compare Product Page*/
-.compare-product-card {
+.compare-product-card,
+.wishlist-card {
   padding: 20px 15px;
   background-color: white;
   border-radius: 10px;
 }
 
-.compare-product-card .cross {
+.compare-product-card .cross,
+.wishlist-card .cross {
   top: 10px;
   right: 10px;
   width: 20px;
   cursor: pointer;
 }
 
-.compare-product-details h5.title {
+.compare-product-details h5.title,
+.wishlist-card h5.title {
   font-size: 15px;
   line-height: 22px;
   font-weight: 500;
   color: var(--color-1c1c1b);
 }
 
-.compare-product-details h6.price{
+.compare-product-details h6.price,
+.wishlist-card h6.price {
   font-size: 15px;
   line-height: 22px;
   font-weight: 400;
 }
 
-.compare-product-card .product-detail{
+.compare-product-card .product-detail {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 0px;
-  border-top: 1px solid var(--color-f5f5f7);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 /* Compare Product Page*/
+
+/* Login Page */
+/* *,
+*:before,
+*:after {
+  box-sizing: border-box;
+} */
+.login-card .form-control{
+  height: 50px;
+  background-color: var(--color-f5f5f7);
+  color: #777777;
+  font-size: 14px;
+  border-radius: 10px;
+  border-color: transparent;
+}
+
+.login-card, .forgot-card {
+  padding: 20px;
+  background-color: white;
+  width: 500px;
+  margin: 30px auto;
+  border-radius: 10px
+}
+
+.login-card h3, .forgot-card h3{
+  font-size: 19px;
+  font-weight: 500;
+}
+
+
+.login-card a{
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-3b4149);
+}
+
+
+/* Login Page */
