@@ -308,6 +308,11 @@ footer .input-group-text {
   top: 3%;
   right: 10px;
 }
+
+.product-card .description{
+  color: #777777;
+  font-size: 14px;
+}
 /* Product Card */
 
 /*Special Product Card */
@@ -435,6 +440,10 @@ footer .input-group-text {
   gap: 20px;
 }
 
+.gr-12 .product-card .product-image{
+  height: auto;
+  width: 270px;
+}
 .gr-12 .action-bar {
   top: 13%;
 }

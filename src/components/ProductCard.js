@@ -37,6 +37,11 @@ const ProductCard = (props) => {
             edit={false}
             activeColor="#ffd700"
           />
+          <p className={`description ${grid ==12?"d-block":"d-none"}`}>
+            Apple Watch is a wearable smartwatch that allows users to accomplish
+            a variety of tasks, including making phone calls, sending text
+            messages and reading email
+          </p>
           <p className="price">500$</p>
         </div>
         <div className="action-bar position-absolute">
