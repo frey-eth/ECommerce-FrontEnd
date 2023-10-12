@@ -84,11 +84,11 @@ export const Footer = () => {
             <div className="col-3">
               <h4 className="text-white mb-4">Information</h4>
               <div className="footer-links d-flex flex-column">
-                <Link className="text-white py-2 mb-1">Privacy Policy</Link>
-                <Link className="text-white py-2 mb-1">Refund Policy</Link>
-                <Link className="text-white py-2 mb-1">Shipping Policy</Link>
-                <Link className="text-white py-2 mb-1">Terms & Conditions</Link>
-                <Link className="text-white py-2 mb-1">Blog</Link>
+                <Link className="text-white py-2 mb-1" to="/privacy-policy">Privacy Policy</Link>
+                <Link className="text-white py-2 mb-1" to="/refund-policy">Refund Policy</Link>
+                <Link className="text-white py-2 mb-1" to="/shipping-policy">Shipping Policy</Link>
+                <Link className="text-white py-2 mb-1" to="/term-conditions">Terms & Conditions</Link>
+                <Link className="text-white py-2 mb-1" to="/blogs">Blogs</Link>
               </div>
             </div>
             <div className="col-3">
