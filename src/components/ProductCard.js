@@ -7,7 +7,7 @@ const ProductCard = (props) => {
   let location = useLocation();
   return (
     <div
-      className={`${location.pathname == "/store" ? `gr-${grid}` : "col-3"}`}
+      className={`${location.pathname == "/product" ? `gr-${grid}` : "col-3"}`}
     >
       <Link className=" product-card position-relative w-100" to="/product/:id">
         <div className="wishlist-icon position-absolute">
@@ -37,7 +37,7 @@ const ProductCard = (props) => {
             edit={false}
             activeColor="#ffd700"
           />
-          <p className={`description ${grid ==12?"d-block":"d-none"}`}>
+          <p className={`description ${grid == 12 ? "d-block" : "d-none"}`}>
             Apple Watch is a wearable smartwatch that allows users to accomplish
             a variety of tasks, including making phone calls, sending text
             messages and reading email
