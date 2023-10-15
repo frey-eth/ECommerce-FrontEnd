@@ -742,12 +742,17 @@ footer .input-group-text {
   color: var(--color-777777);
 }
 
-.cart-header {
+.cart-header,
+.cart-data {
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 .cart-col-1 {
   width: 40%;
+}
+
+.cart-col-1 p {
+  color: #777777;
 }
 .cart-col-2 {
   width: 10%;
