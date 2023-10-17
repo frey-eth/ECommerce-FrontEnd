@@ -1,15 +1,13 @@
 import React from "react";
 import { BreadCrumb } from "../components/BreadCrumb";
 import { Link } from "react-router-dom";
+import Container from "../components/Container";
 
 const Signup = () => {
   return (
     <>
       <BreadCrumb title="Sign Up" />
-      <div className="login-wrapper py-5 home-wrapper-2">
-        <div className="login-top"></div>
-        <div className="login-bottom"></div>
-        <div className="container-xxl">
+      <Container className="login-wrapper py-5 home-wrapper-2">
           <div className="row">
             <div className="col-12">
               <div className="login-card">
@@ -64,8 +62,7 @@ const Signup = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+      </Container>
     </>
   );
 };
