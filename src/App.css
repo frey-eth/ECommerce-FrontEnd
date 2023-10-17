@@ -764,3 +764,16 @@ footer .input-group-text {
   width: 25%;
 }
 /* Cart Page */
+
+/* Shipping Page */
+.total{
+  font-size: 14px;
+  color: var(--color-1c1c1b);
+}
+
+.total-price{
+  font-size: 16px;
+  color: var(--color-777777);
+}
+
+/* Shipping Page */
