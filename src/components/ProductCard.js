@@ -3,13 +3,16 @@ import ReactStars from "react-rating-stars-component";
 import { Link, useLocation } from "react-router-dom";
 
 const ProductCard = (props) => {
-  const { grid } = props;
+  const { grid, data } = props;
   let location = useLocation();
   return (
     <div
       className={`${location.pathname == "/product" ? `gr-${grid}` : "col-3"}`}
     >
-      <Link className="product-card position-relative w-100" to="/product/:id">
+      <Link
+        className="product-card position-relative w-100"
+        to={`/product/${data._id}`}
+      >
         <div className="wishlist-icon position-absolute">
           <button className="border-0 bg-transparent">
             <img src="/images/wish.svg" alt="wishlist" />
@@ -17,32 +20,38 @@ const ProductCard = (props) => {
         </div>
         <div className="product-image h-auto">
           <img
-            src="/images/watch.jpg"
+            src={data.images[0].url}
             alt="product image"
             className="img-fluid"
           />
-          <img
-            src="/images/watch2.png"
-            alt="product image"
-            className="img-fluid"
-          />
+          {data.images[1] ? (
+            <img
+              src={data.images[1]?.url}
+              alt="product image"
+              className="img-fluid"
+            />
+          ) : (
+            <img
+              src={data.images[0].url}
+              alt="product image"
+              className="img-fluid"
+            />
+          )}
         </div>
         <div className="product-details">
-          <h6 className="brand">Apple</h6>
-          <h5 className="product-title">Apple Watch series 6</h5>
+          <h6 className="brand">{data.brand}</h6>
+          <h5 className="product-title">{data.title}</h5>
           <ReactStars
             count={5}
             size={24}
-            value="3"
+            value={data.totalRating}
             edit={false}
             activeColor="#ffd700"
           />
           <p className={`description ${grid == 12 ? "d-block" : "d-none"}`}>
-            Apple Watch is a wearable smartwatch that allows users to accomplish
-            a variety of tasks, including making phone calls, sending text
-            messages and reading email
+            {data.description}
           </p>
-          <p className="price">500$</p>
+          <p className="price">{data.price}$</p>
         </div>
         <div className="action-bar position-absolute">
           <div className="d-flex flex-column gap-15">

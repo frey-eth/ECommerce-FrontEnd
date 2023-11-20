@@ -67,6 +67,7 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         state.userData = action.payload;
+        localStorage.setItem("token", action.payload.token);
         if (state.isSuccess === true) {
           toast.success("Login successful!");
         }

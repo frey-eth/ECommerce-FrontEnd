@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BreadCrumb } from "../components/BreadCrumb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { registerUser } from "../features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../features/user/userSlice";
 
 const loginSchema = Yup.object({
   email: Yup.string().required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userDetail = useSelector((state) => state.auth);
+  const { isSuccess, isLoading, isError, userData } = userDetail;
+  useEffect(() => {
+    if (isSuccess && userData) {
+      navigate("/");
+      formik.resetForm();
+    }
+  }, [isSuccess, isLoading, isError, userData]);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -20,7 +29,7 @@ const Login = () => {
     },
     validationSchema: loginSchema,
     onSubmit: (values) => {
-      dispatch(loginSchema(values));
+      dispatch(loginUser(values));
     },
   });
   return (
@@ -32,7 +41,7 @@ const Login = () => {
             <div className="login-card">
               <h3 className="text-center mb-3">Login</h3>
               <form
-                onSubmit={formik.handleBlur}
+                onSubmit={formik.handleSubmit}
                 className="d-flex flex-column gap-15"
               >
                 <input

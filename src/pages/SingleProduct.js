@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { BreadCrumb } from "../components/BreadCrumb";
-import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import ReactStars from "react-rating-stars-component";
 import ReactImageZoom from "react-image-zoom";
