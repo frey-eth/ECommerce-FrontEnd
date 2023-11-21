@@ -21,15 +21,15 @@ export const Footer = () => {
               </div>
             </div>
             <div className="col-7">
-              <div class="input-group">
+              <div className="input-group">
                 <input
                   type="text"
-                  class="form-control py-1"
+                  className="form-control py-1"
                   placeholder="Enter Your Email..."
                   aria-label="Enter Your Email"
                   aria-describedby="basic-addon2"
                 />
-                <span class="input-group-text p-2" id="basic-addon2">
+                <span className="input-group-text p-2" id="basic-addon2">
                   Subscribe
                 </span>
               </div>
@@ -84,11 +84,21 @@ export const Footer = () => {
             <div className="col-3">
               <h4 className="text-white mb-4">Information</h4>
               <div className="footer-links d-flex flex-column">
-                <Link className="text-white py-2 mb-1" to="/privacy-policy">Privacy Policy</Link>
-                <Link className="text-white py-2 mb-1" to="/refund-policy">Refund Policy</Link>
-                <Link className="text-white py-2 mb-1" to="/shipping-policy">Shipping Policy</Link>
-                <Link className="text-white py-2 mb-1" to="/term-conditions">Terms & Conditions</Link>
-                <Link className="text-white py-2 mb-1" to="/blogs">Blogs</Link>
+                <Link className="text-white py-2 mb-1" to="/privacy-policy">
+                  Privacy Policy
+                </Link>
+                <Link className="text-white py-2 mb-1" to="/refund-policy">
+                  Refund Policy
+                </Link>
+                <Link className="text-white py-2 mb-1" to="/shipping-policy">
+                  Shipping Policy
+                </Link>
+                <Link className="text-white py-2 mb-1" to="/term-conditions">
+                  Terms & Conditions
+                </Link>
+                <Link className="text-white py-2 mb-1" to="/blogs">
+                  Blogs
+                </Link>
               </div>
             </div>
             <div className="col-3">

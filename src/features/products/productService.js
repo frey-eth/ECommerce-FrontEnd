@@ -10,6 +10,13 @@ const getProduct = async (id) => {
   return response.data;
 };
 
+const addToWishList = async (userData) => {
+  const response = await axios.get(`${baseUrl}product/`);
+  if (response.data) {
+    return response.data;
+  }
+};
+
 export const productService = {
   getAllProducts,
   getProduct,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BreadCrumb } from "../components/BreadCrumb";
 import ProductCard from "../components/ProductCard";
 import ReactStars from "react-rating-stars-component";
@@ -9,18 +9,30 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { FaShippingFast } from "react-icons/fa";
 import { BsShare } from "react-icons/bs";
 import Container from "../components/Container";
+import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts, getProduct } from "../features/products/productSlice";
 
 const SingleProduct = () => {
   const [orderedProduct, setOrderedProduct] = useState(true);
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const productId = location.pathname.split("/")[2];
+  useEffect(() => {
+    if (productId) {
+      dispatch(getProduct(productId));
+      dispatch(getAllProducts());
+    }
+  }, [productId]);
 
-  const copyToClipboard = (text) => {
-    console.log("text", text);
-    var textField = document.createElement("textarea");
-    textField.innerText = text;
-    document.body.appendChild(textField);
-    textField.select();
-    document.execCommand("copy");
-    textField.remove();
+  const productState = useSelector((state) => state.product);
+  const productData = productState.productData?.product;
+  const copyToClipboard = async (link) => {
+    try {
+      await navigator.clipboard.writeText(link);
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   const props = {
@@ -32,7 +44,7 @@ const SingleProduct = () => {
 
   return (
     <>
-      <BreadCrumb title="Product Name" />
+      <BreadCrumb title={productData?.title} />
       <Container class1="main-product-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-6">
@@ -59,19 +71,21 @@ const SingleProduct = () => {
           <div className="col-6">
             <div className="main-product-details">
               <div className="border-bottom">
-                <h3 className="title">Watch for Professional Man</h3>
+                <h3 className="title">{productData?.title}</h3>
               </div>
               <div className="border-bottom">
-                <p className="price">$ 250</p>
+                <p className="price">${productData?.price}</p>
                 <div className="d-flex align-items-center gap-10">
                   <ReactStars
                     count={5}
                     size={24}
-                    value="3"
+                    value={productData?.totalRating * 1}
                     edit={false}
                     activeColor="#ffd700"
                   />
-                  <p className="mb-0 num-reviews">(2 reviews)</p>
+                  <p className="mb-0 num-reviews">
+                    ({productData?.ratings?.length} reviews)
+                  </p>
                 </div>
                 <a className="review-btn" href="#review">
                   Write a review
@@ -80,23 +94,25 @@ const SingleProduct = () => {
               <div className="border-bottom py-3">
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Type:</h3>
-                  <p className="product-data">Watch</p>
+                  <p className="product-data">{productData?.slug}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Brand:</h3>
-                  <p className="product-data">Apple</p>
+                  <p className="product-data">{productData?.brand}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Category:</h3>
-                  <p className="product-data">Watch</p>
+                  <p className="product-data">{productData?.category}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Tags:</h3>
-                  <p className="product-data">Watch</p>
+                  <p className="product-data">{productData?.tag}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Avaibility:</h3>
-                  <p className="product-data">In Stock</p>
+                  <p className="product-data">
+                    {productData?.quantity} In Stock
+                  </p>
                 </div>
                 <div className="d-flex gap-10 flex-column my-2 mb-3">
                   <h3 className="product-heading">Size:</h3>
@@ -153,12 +169,16 @@ const SingleProduct = () => {
                 <div className="d-flex gap-10 flex-column my-3 mb-3">
                   <div className="d-flex gap-10 align-items-center">
                     <BsShare />
-                    <a
-                      href="javascript:void(0);"
-                      onClick={() => copyToClipboard("hello world")}
+                    <button
+                      className="border-0 bg-transparent"
+                      onClick={() =>
+                        copyToClipboard(
+                          `http://localhost:3000` + location.pathname
+                        )
+                      }
                     >
                       Copy Product Link
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -199,7 +219,7 @@ const SingleProduct = () => {
                     <ReactStars
                       count={5}
                       size={24}
-                      value="3"
+                      value={3}
                       edit={false}
                       activeColor="#ffd700"
                     />
@@ -224,7 +244,7 @@ const SingleProduct = () => {
                     <ReactStars
                       count={5}
                       size={20}
-                      value="0"
+                      value={3}
                       edit={true}
                       activeColor="#ffd700"
                     />
@@ -251,7 +271,7 @@ const SingleProduct = () => {
                     <ReactStars
                       count={5}
                       size={15}
-                      value="3"
+                      value={3}
                       edit={true}
                       activeColor="#ffd700"
                     />
@@ -275,10 +295,10 @@ const SingleProduct = () => {
             <h3 className="section-heading">Our Popular Products</h3>
           </div>
           <div className="row">
+            {/* <ProductCard />
             <ProductCard />
             <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            <ProductCard /> */}
           </div>
         </div>
       </Container>

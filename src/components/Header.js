@@ -34,15 +34,15 @@ export const Header = () => {
               </h2>
             </div>
             <div className="col-5">
-              <div class="input-group">
+              <div className="input-group">
                 <input
                   type="text"
-                  class="form-control py-2"
+                  className="form-control py-2"
                   placeholder="Search Product Here..."
                   aria-label="Search Product Here"
                   aria-describedby="basic-addon2"
                 />
-                <span class="input-group-text p-2" id="basic-addon2">
+                <span className="input-group-text p-2" id="basic-addon2">
                   <BsSearch className="fs-6" />
                 </span>
               </div>
@@ -106,9 +106,9 @@ export const Header = () => {
             <div className="col-12">
               <div className="menu-bottom d-flex align-items-center gap-30">
                 <div>
-                  <div class="dropdown">
+                  <div className="dropdown">
                     <button
-                      class="btn btn-secondary dropdown-toggle bg-transparent border-0 d-flex align-items-center"
+                      className="btn btn-secondary dropdown-toggle bg-transparent border-0 d-flex align-items-center"
                       type="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
@@ -118,19 +118,19 @@ export const Header = () => {
                         Shop Categories
                       </span>
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul className="dropdown-menu">
                       <li>
-                        <Link class="dropdown-item text-white" to="">
+                        <Link className="dropdown-item text-white" to="">
                           Action
                         </Link>
                       </li>
                       <li>
-                        <Link class="dropdown-item text-white" to="">
+                        <Link className="dropdown-item text-white" to="">
                           Another action
                         </Link>
                       </li>
                       <li>
-                        <Link class="dropdown-item text-white" to="">
+                        <Link className="dropdown-item text-white" to="">
                           Something else here
                         </Link>
                       </li>

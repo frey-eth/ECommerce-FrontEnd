@@ -7,11 +7,11 @@ const ProductCard = (props) => {
   let location = useLocation();
   return (
     <div
-      className={`${location.pathname == "/product" ? `gr-${grid}` : "col-3"}`}
+      className={`${location.pathname === "/product" ? `gr-${grid}` : "col-3"}`}
     >
       <Link
         className="product-card position-relative w-100"
-        to={`/product/${data._id}`}
+        to={`/product/${data?._id}`}
       >
         <div className="wishlist-icon position-absolute">
           <button className="border-0 bg-transparent">
@@ -44,7 +44,7 @@ const ProductCard = (props) => {
           <ReactStars
             count={5}
             size={24}
-            value={data.totalRating}
+            value={data?.totalRating*1}
             edit={false}
             activeColor="#ffd700"
           />

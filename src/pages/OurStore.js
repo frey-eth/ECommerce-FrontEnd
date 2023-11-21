@@ -58,19 +58,19 @@ const OurStore = () => {
                 </div>
                 <h5 className="sub-title">Price</h5>
                 <div className="d-flex align-items-center gap-10">
-                  <div class="form-floating mb-3">
+                  <div className="form-floating mb-3">
                     <input
                       type="email"
-                      class="form-control"
+                      className="form-control"
                       id="priceInput"
                       placeholder="From"
                     />
                     <label htmlFor="floatingInput">From</label>
                   </div>
-                  <div class="form-floating mb-3">
+                  <div className="form-floating mb-3">
                     <input
                       type="email"
-                      class="form-control"
+                      className="form-control"
                       id="priceInput1"
                       placeholder="To"
                     />
@@ -139,7 +139,7 @@ const OurStore = () => {
                     <ReactStars
                       count={5}
                       size={24}
-                      value="3"
+                      value={3}
                       edit={false}
                       activeColor="#ffd700"
                     />
@@ -159,7 +159,7 @@ const OurStore = () => {
                     <ReactStars
                       count={5}
                       size={24}
-                      value="3"
+                      value={3}
                       edit={false}
                       activeColor="#ffd700"
                     />
