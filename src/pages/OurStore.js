@@ -5,13 +5,16 @@ import ProductCard from "../components/ProductCard";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../features/products/productSlice";
+import { getCategories } from "../features/productCategory/categorySlice";
 
 const OurStore = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProducts());
+    dispatch(getCategories());
   }, []);
   const productState = useSelector((state) => state.product.products);
+  const categoryState = useSelector((state) => state.category.categories);
   const [grid, setGrid] = useState(4);
   return (
     <>
@@ -22,10 +25,9 @@ const OurStore = () => {
             <div className="filter-card mb-3">
               <h3 className="filter-title">Shop by Categories</h3>
               <ul className="ps-0">
-                <li>Phone</li>
-                <li>Laptop</li>
-                <li>Smart Watch</li>
-                <li>Tablet</li>
+                {categoryState.map((category) => (
+                  <li key={category._id}>{category?.title}</li>
+                ))}
               </ul>
             </div>
             <div className="filter-card mb-3">
@@ -231,7 +233,7 @@ const OurStore = () => {
             <div className="products-list pb-5">
               <div className="d-flex flex-wrap gap-10">
                 {productState.map((data, index) => {
-                  return <ProductCard grid={grid} data={data} />;
+                  return <ProductCard key={index} grid={grid} data={data} />;
                 })}
               </div>
             </div>

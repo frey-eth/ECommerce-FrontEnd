@@ -148,10 +148,10 @@ const Home = () => {
           <div className="col-12">
             <h3 className="section-heading">Feature Collections</h3>
           </div>
+          {/* <ProductCard />
           <ProductCard />
           <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          <ProductCard /> */}
         </div>
       </Container>
       <Container class1="famous-wrapper py-5 home-wrapper-2">
@@ -233,10 +233,10 @@ const Home = () => {
             <h3 className="section-heading">Our Popular Products</h3>
           </div>
           <div className="row">
+            {/* <ProductCard />
             <ProductCard />
             <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            <ProductCard /> */}
           </div>
         </div>
       </Container>

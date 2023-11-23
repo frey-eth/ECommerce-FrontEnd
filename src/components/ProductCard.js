@@ -1,20 +1,25 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link, useLocation } from "react-router-dom";
+import { addToWishList } from "../features/products/productSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductCard = (props) => {
   const { grid, data } = props;
+  const dispatch = useDispatch();
   let location = useLocation();
   return (
     <div
       className={`${location.pathname === "/product" ? `gr-${grid}` : "col-3"}`}
     >
-      <Link
-        className="product-card position-relative w-100"
-        to={`/product/${data?._id}`}
-      >
+      <div className="product-card position-relative w-100">
         <div className="wishlist-icon position-absolute">
-          <button className="border-0 bg-transparent">
+          <button
+            className="border-0 bg-transparent"
+            onClick={() => {
+              dispatch(addToWishList(data?._id));
+            }}
+          >
             <img src="/images/wish.svg" alt="wishlist" />
           </button>
         </div>
@@ -38,13 +43,13 @@ const ProductCard = (props) => {
             />
           )}
         </div>
-        <div className="product-details">
+        <Link className="product-details" to={`/product/${data?._id}`}>
           <h6 className="brand">{data.brand}</h6>
           <h5 className="product-title">{data.title}</h5>
           <ReactStars
             count={5}
             size={24}
-            value={data?.totalRating*1}
+            value={data?.totalRating * 1}
             edit={false}
             activeColor="#ffd700"
           />
@@ -52,7 +57,7 @@ const ProductCard = (props) => {
             {data.description}
           </p>
           <p className="price">{data.price}$</p>
-        </div>
+        </Link>
         <div className="action-bar position-absolute">
           <div className="d-flex flex-column gap-15">
             <button className="border-0 bg-transparent">
@@ -66,7 +71,7 @@ const ProductCard = (props) => {
             </button>
           </div>
         </div>
-      </Link>
+      </div>
     </div>
   );
 };
