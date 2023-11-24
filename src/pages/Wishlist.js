@@ -4,7 +4,6 @@ import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserWishList } from "../features/user/userSlice";
 import { addToWishList } from "../features/products/productSlice";
-import Loading from "../components/Loading";
 
 const Wishlist = () => {
   const dispatch = useDispatch();
@@ -20,11 +19,11 @@ const Wishlist = () => {
       <BreadCrumb title="Favorite List" />
       <Container class1="wishlist-wrapper home-wrapper-2 py-5">
         <div className="row">
-          {userWishListState ? (
+          {userWishListState && userWishListState?.length > 0 ? (
             userWishListState.map((item, index) => {
               return (
-                <div className="col-3">
-                  <div className="wishlist-card position-relative" key={index}>
+                <div className="col-3" key={index}>
+                  <div className="wishlist-card position-relative">
                     <img
                       src="/images/cross.svg"
                       alt="cross"
@@ -53,7 +52,9 @@ const Wishlist = () => {
               );
             })
           ) : (
-            <Loading />
+            <div className="col-12 text-center text-uppercase">
+              <h1>Your wishlist is empty.</h1>
+            </div>
           )}
         </div>
       </Container>

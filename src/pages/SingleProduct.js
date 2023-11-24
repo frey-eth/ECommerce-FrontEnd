@@ -11,7 +11,11 @@ import { BsShare } from "react-icons/bs";
 import Container from "../components/Container";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts, getProduct } from "../features/products/productSlice";
+import {
+  addToWishList,
+  getAllProducts,
+  getProduct,
+} from "../features/products/productSlice";
 import Loading from "../components/Loading";
 
 const SingleProduct = () => {
@@ -151,7 +155,13 @@ const SingleProduct = () => {
                     <div className="d-flex gap-15 align-items-center flex-row">
                       <div>
                         <AiOutlineHeart className="fs-5 me-2" />
-                        <a href="">Add to Wishlist</a>
+                        <button className="border-0 bg-transparent"
+                          onClick={() => {
+                            dispatch(addToWishList(productData?._id));
+                          }}
+                        >
+                          Add to Wishlist
+                        </button>
                       </div>
                       <div>
                         <VscGitCompare className="fs-5 me-2" />
