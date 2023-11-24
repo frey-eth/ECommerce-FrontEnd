@@ -15,13 +15,13 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userDetail = useSelector((state) => state.auth);
-  const { isSuccess, isLoading, isError, userData } = userDetail;
+  const { isSuccess, isLoading, isError, user } = userDetail;
   useEffect(() => {
-    if (isSuccess && userData) {
+    if (isSuccess && user) {
       navigate("/");
       formik.resetForm();
     }
-  }, [isSuccess, isLoading, isError, userData]);
+  }, [isSuccess, isLoading, isError, user]);
   const formik = useFormik({
     initialValues: {
       email: "",

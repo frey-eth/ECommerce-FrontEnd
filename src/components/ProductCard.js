@@ -8,6 +8,7 @@ const ProductCard = (props) => {
   const { grid, data } = props;
   const dispatch = useDispatch();
   let location = useLocation();
+
   return (
     <div
       className={`${location.pathname === "/product" ? `gr-${grid}` : "col-3"}`}
