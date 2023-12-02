@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Marquee from "react-fast-marquee";
 import { Link } from "react-router-dom";
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
+import { useDispatch, useSelector } from "react-redux";
 import SpecialProduct from "../components/SpecialProduct";
 import Container from "../components/Container";
 import { services } from "../utils/Data";
+import { getAllProducts } from "../features/products/productSlice";
+import { getAllBlog } from "../features/blog/blogSlice";
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+    dispatch(getAllBlog());
+  }, []);
+  const blogState = useSelector((state) => state.blog.blogs);
+  const productState = useSelector((state) => state.product.products);
+
   return (
     <>
-      <Container class1="home-wrapper-1 py-5">
+      <Container class1="home-wrapper-2 py-5">
         <div className="row">
           <div className="col-6">
             <div className="main-banner position-relative p-3">
@@ -90,7 +102,7 @@ const Home = () => {
             <div className="services d-flex align-items-center justify-content-between">
               {services?.map((item, index) => {
                 return (
-                  <div className="d-flex align-items-center gap-15">
+                  <div key={index} className="d-flex align-items-center gap-15">
                     <img src={item.image} alt="services" />
                     <div>
                       <h6>{item.title}</h6>
@@ -103,7 +115,7 @@ const Home = () => {
           </div>
         </div>
       </Container>
-      <Container class1="home-wrapper-1 py-5">
+      <Container class1="home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <div className="categories d-flex justify-content-between flex-wrap align-items-center">
@@ -143,15 +155,16 @@ const Home = () => {
           </div>
         </div>
       </Container>
-      <Container class1="home-wrapper-1 py-5">
+      <Container class1="home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <h3 className="section-heading">Feature Collections</h3>
           </div>
-          {/* <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard /> */}
+          {productState &&
+            productState?.map((item, index) => {
+              if (item.tag === "featured")
+                return <ProductCard key={index} data={item} />;
+            })}
         </div>
       </Container>
       <Container class1="famous-wrapper py-5 home-wrapper-2">
@@ -221,10 +234,22 @@ const Home = () => {
           </div>
         </div>
         <div className="row">
-          <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
+          {productState &&
+            productState?.map((item, index) => {
+              if (item.tag === "special")
+                return (
+                  <SpecialProduct
+                    key={index}
+                    title={item.title}
+                    brand={item.brand}
+                    images={item.images}
+                    totalRatings={item.totalRatings}
+                    sold={item?.sold}
+                    price={item.price}
+                    quantity={item.quantity}
+                  />
+                );
+            })}
         </div>
       </Container>
       <Container class1="featured-wrapper py-5 home-wrapper-2">
@@ -233,10 +258,11 @@ const Home = () => {
             <h3 className="section-heading">Our Popular Products</h3>
           </div>
           <div className="row">
-            {/* <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard /> */}
+            {productState &&
+              productState?.map((item, index) => {
+                if (item.tag === "popular")
+                  return <ProductCard key={index} data={item} />;
+              })}
           </div>
         </div>
       </Container>
@@ -279,19 +305,15 @@ const Home = () => {
           <div className="col-12">
             <h3 className="section-heading">Our Latest Blogs</h3>
           </div>
-          <div className="row">
-            <div className="col-3">
-              <BlogCard />
-            </div>
-            <div className="col-3">
-              <BlogCard />
-            </div>
-            <div className="col-3">
-              <BlogCard />
-            </div>
-            <div className="col-3">
-              <BlogCard />
-            </div>
+          <div className="row d-flex">
+            {blogState &&
+              blogState?.slice(0, 4).map((item, index) => {
+                return (
+                  <div className="col-3">
+                    <BlogCard key={index} data={item} style={{ flex: "1" }} />
+                  </div>
+                );
+              })}
           </div>
         </div>
       </Container>

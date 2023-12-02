@@ -1,8 +1,9 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
-
+import { getTokenFromLocalStorage } from "../utils/axiosConfig";
 export const Header = () => {
+  const token = getTokenFromLocalStorage?.token;
   return (
     <>
       <header className="header-top-strip py-3">
@@ -78,10 +79,7 @@ export const Header = () => {
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src="/images/user.svg" alt="user" />
-                    <p className="mb-0 p-2">
-                      Login <br />
-                      My Account
-                    </p>
+                    <p className="mb-0 p-2">{token ? "My Account" : "Login"}</p>
                   </Link>
                 </div>
                 <div>

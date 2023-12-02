@@ -155,7 +155,8 @@ const SingleProduct = () => {
                     <div className="d-flex gap-15 align-items-center flex-row">
                       <div>
                         <AiOutlineHeart className="fs-5 me-2" />
-                        <button className="border-0 bg-transparent"
+                        <button
+                          className="border-0 bg-transparent"
                           onClick={() => {
                             dispatch(addToWishList(productData?._id));
                           }}

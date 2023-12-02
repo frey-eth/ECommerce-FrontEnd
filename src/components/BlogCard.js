@@ -1,24 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const BlogCard = () => {
+const BlogCard = (props) => {
+  const { data } = props;
+  const options = { year: "numeric", month: "long", day: "numeric" };
+
   return (
-      <div className="blog-card">
-        <Link to="/blog/:id" className="blog-card-link">
-          <div className="card-image">
-            <img src="/images/blog-1.jpg" alt="blog" className="img-fluid" />
-            <div className="blog-content">
-              <p className="date">07 Oct, 2023</p>
-              <h5 className="title">A beautiful sunday morning renaissane</h5>
-              <p className="desc">
-                We love our customers! As a former small business marketer
-                myself, I love our passionate dedication to empowering and
-                supporting small business growth...
-              </p>
-            </div>
+    <div className="blog-card d-flex" style={data?.style}>
+      <Link to={`/blog/${data?._id}`} className="blog-card-link">
+        <div className="card-image">
+          <img src={data?.images[0].url} alt="blog" className="img-fluid" />
+          <div className="blog-content">
+            <p className="date">
+              {Intl.DateTimeFormat("en-US", options).format(
+                new Date(data?.createdAt)
+              )}
+            </p>
+            <h5 className="title">{data?.title}</h5>
+            <p className="desc">{data?.description}</p>
           </div>
-        </Link>
-      </div>
+        </div>
+      </Link>
+    </div>
   );
 };
 

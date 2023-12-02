@@ -88,7 +88,9 @@ export const productSlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         state.addToWishList = action.payload;
-        state.addToWishList.wishlist?.some((item) => item._id == item._id)
+        state.addToWishList.wishlist?.some(
+          (item) => item._id == action.payload.wishlist._id
+        )
           ? toast.success("Product is added to wishlist!")
           : toast.warn("Product is removed from wishlist");
       })

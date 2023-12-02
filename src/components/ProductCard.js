@@ -2,7 +2,7 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link, useLocation } from "react-router-dom";
 import { addToWishList } from "../features/products/productSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const ProductCard = (props) => {
   const { grid, data } = props;
@@ -11,7 +11,9 @@ const ProductCard = (props) => {
 
   return (
     <div
-      className={`${location.pathname === "/product" ? `gr-${grid}` : "col-3"}`}
+      className={`${
+        location.pathname === "/product" ? `gr-${grid}` : "col-3"
+      } my-2`}
     >
       <div className="product-card position-relative w-100">
         <div className="wishlist-icon position-absolute">
