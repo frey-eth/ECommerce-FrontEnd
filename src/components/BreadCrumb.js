@@ -8,10 +8,8 @@ export const BreadCrumb = (props) => {
       <div className="container-xxl">
         <div className="row">
           <div className="col-12">
-            <p className="text-center">
-              <Link to="/">
-                Home / {title}
-              </Link>
+            <p className="text-center text-uppercase">
+              <Link to="/">Home / {title}</Link>
             </p>
           </div>
         </div>

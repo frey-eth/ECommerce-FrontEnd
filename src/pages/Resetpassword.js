@@ -6,7 +6,7 @@ const Resetpassword = () => {
   return (
     <>
       <BreadCrumb title="Reset Your Password" />
-      <Container className="login-wrapper py-5 home-wrapper-2">
+      <Container class1="login-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
             <div className="login-card">

@@ -87,12 +87,12 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
+        const prevWishlistLength = state.addToWishList?.wishlist?.length || 0;
         state.addToWishList = action.payload;
-        state.addToWishList.wishlist?.some(
-          (item) => item._id == action.payload.wishlist._id
-        )
-          ? toast.success("Product is added to wishlist!")
-          : toast.warn("Product is removed from wishlist");
+        const newWishlistLength = action.payload?.wishlist?.length || 0;
+        prevWishlistLength > newWishlistLength
+          ? toast.warn("Product is removed from wishlist")
+          : toast.success("Product is added to wishlist!");
       })
       .addCase(addToWishList.rejected, (state, action) => {
         state.isLoading = false;

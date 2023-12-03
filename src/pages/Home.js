@@ -9,6 +9,7 @@ import Container from "../components/Container";
 import { services } from "../utils/Data";
 import { getAllProducts } from "../features/products/productSlice";
 import { getAllBlog } from "../features/blog/blogSlice";
+import PopularCard from "../components/PopularCard";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -167,66 +168,7 @@ const Home = () => {
             })}
         </div>
       </Container>
-      <Container class1="famous-wrapper py-5 home-wrapper-2">
-        <div className="row">
-          <div className="col-3">
-            <div className="famous-card text-white position-relative">
-              <img
-                src="/images/famous.jpg"
-                alt="famous"
-                className="img-fluid"
-              />
-              <div className="famous-content position-absolute">
-                <h5>Big Screen</h5>
-                <h6>Smart Watch Series 7</h6>
-                <p>From $399 or 16.62/mo. for 24 mo.</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-3">
-            <div className="famous-card text-white position-relative">
-              <img
-                src="/images/famous.jpg"
-                alt="famous"
-                className="img-fluid"
-              />
-              <div className="famous-content position-absolute">
-                <h5>Big Screen</h5>
-                <h6>Smart Watch Series 7</h6>
-                <p>From $399 or 16.62/mo. for 24 mo.</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-3">
-            <div className="famous-card text-white position-relative">
-              <img
-                src="/images/famous.jpg"
-                alt="famous"
-                className="img-fluid"
-              />
-              <div className="famous-content position-absolute">
-                <h5>Big Screen</h5>
-                <h6>Smart Watch Series 7</h6>
-                <p>From $399 or 16.62/mo. for 24 mo.</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-3">
-            <div className="famous-card text-white position-relative">
-              <img
-                src="/images/famous.jpg"
-                alt="famous"
-                className="img-fluid"
-              />
-              <div className="famous-content position-absolute">
-                <h5>Big Screen</h5>
-                <h6>Smart Watch Series 7</h6>
-                <p>From $399 or 16.62/mo. for 24 mo.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Container>
+
       <Container class1="special-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
@@ -247,6 +189,7 @@ const Home = () => {
                     sold={item?.sold}
                     price={item.price}
                     quantity={item.quantity}
+                    _id={item._id}
                   />
                 );
             })}
@@ -261,7 +204,11 @@ const Home = () => {
             {productState &&
               productState?.map((item, index) => {
                 if (item.tag === "popular")
-                  return <ProductCard key={index} data={item} />;
+                  return (
+                    <>
+                      <PopularCard key={index} data={item} />
+                    </>
+                  );
               })}
           </div>
         </div>

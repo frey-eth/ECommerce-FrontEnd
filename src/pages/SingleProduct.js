@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BreadCrumb } from "../components/BreadCrumb";
 import ProductCard from "../components/ProductCard";
 import ReactStars from "react-rating-stars-component";
@@ -29,6 +29,15 @@ const SingleProduct = () => {
       dispatch(getAllProducts());
     }
   }, [productId]);
+
+  useEffect(() => {
+    const mainProductWrapper = document.querySelector(".main-product-wrapper");
+    if (mainProductWrapper) {
+      mainProductWrapper.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  }, []);
 
   const productState = useSelector((state) => state.product);
   const productData = productState.productData?.product;
@@ -67,7 +76,7 @@ const SingleProduct = () => {
                   {productData.images.map((img, index) => {
                     return (
                       <div key={index}>
-                        <img src={img.url} alt="" className="img-fluid" />
+                        <img src={img.url} className="img-fluid" />
                       </div>
                     );
                   })}
@@ -76,7 +85,9 @@ const SingleProduct = () => {
               <div className="col-6">
                 <div className="main-product-details">
                   <div className="border-bottom">
-                    <h3 className="title">{productData?.title}</h3>
+                    <h3 className="title text-uppercase">
+                      {productData?.title}
+                    </h3>
                   </div>
                   <div className="border-bottom">
                     <p className="price">${productData?.price}</p>

@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
-import { getTokenFromLocalStorage } from "../utils/axiosConfig";
-export const Header = () => {
-  const token = getTokenFromLocalStorage?.token;
+export const Header = (props) => {
+  const { isLogin } = props;
   return (
     <>
       <header className="header-top-strip py-3">
@@ -16,7 +15,7 @@ export const Header = () => {
             </div>
             <div className="col-6">
               <p className="text-end text-white mb-0">
-                Hotline:{" "}
+                Hotline:
                 <a className="text-white" href="tel:0352498496">
                   0352498496
                 </a>
@@ -74,13 +73,47 @@ export const Header = () => {
                   </Link>
                 </div>
                 <div>
-                  <Link
-                    to="/login"
-                    className="d-flex align-items-center gap-10 text-white"
-                  >
-                    <img src="/images/user.svg" alt="user" />
-                    <p className="mb-0 p-2">{token ? "My Account" : "Login"}</p>
-                  </Link>
+                  {isLogin ? (
+                    <div className="dropdown">
+                      <button
+                        className="btn text-white d-flex align-items-center"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <img src="/images/user.svg" alt="user" />
+                        <p className="mb-0 p-2">My Account</p>
+                      </button>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <button className="dropdown-item" type="button">
+                            Profile
+                          </button>
+                        </li>
+                        <li>
+                          <Link
+                            to={`/login`}
+                            className="dropdown-item"
+                            type="button"
+                            onClick={() => {
+                              localStorage.clear();
+                              this.forceUpdate();
+                            }}
+                          >
+                            Logout
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  ) : (
+                    <Link
+                      to="/login"
+                      className="d-flex align-items-center gap-10 text-white"
+                    >
+                      <img src="/images/user.svg" alt="user" />
+                      <p className="mb-0 p-2">Login</p>
+                    </Link>
+                  )}
                 </div>
                 <div>
                   <Link

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BreadCrumb } from "../components/BreadCrumb";
 import { Link, useNavigate } from "react-router-dom";
 import Container from "../components/Container";
@@ -16,12 +16,17 @@ const Login = () => {
   const dispatch = useDispatch();
   const userDetail = useSelector((state) => state.auth);
   const { isSuccess, isLoading, isError, user } = userDetail;
+  const [forceUpdate, setForceUpdate] = useState(false);
+
   useEffect(() => {
     if (isSuccess && user) {
-      navigate("/");
-      formik.resetForm();
+      setTimeout(() => {
+        formik.resetForm();
+        navigate("/");
+        navigate(0); // Navigate back to the previous location
+      }, 2000);
     }
-  }, [isSuccess, isLoading, isError, user]);
+  }, [isSuccess, isLoading, isError, user, forceUpdate]);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -30,6 +35,7 @@ const Login = () => {
     validationSchema: loginSchema,
     onSubmit: (values) => {
       dispatch(loginUser(values));
+      setForceUpdate((prev) => !prev);
     },
   });
   return (
