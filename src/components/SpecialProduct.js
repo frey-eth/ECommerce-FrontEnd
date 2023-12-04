@@ -37,12 +37,12 @@ function SpecialProduct(props) {
             </p>
             <div className="discount-till d-flex align-items-center gap-10">
               <p className="mb-0 d-flex gap-1">
-                <b>5</b>days
+                <span className="badge p-2 bg-danger-subtle">5 D</span>
               </p>
               <div className="d-flex gap-10 align-items-center">
-                <span className="badge p-2 bg-warning">1</span>:
-                <span className="badge p-2 bg-warning">1</span>:
-                <span className="badge p-2 bg-warning">1</span>
+                <span className="badge p-2 bg-warning">19 h</span>:
+                <span className="badge p-2 bg-warning">54 m</span>:
+                <span className="badge p-2 bg-warning">12 s</span>
               </div>
             </div>
             <div className="product-count mt-3">

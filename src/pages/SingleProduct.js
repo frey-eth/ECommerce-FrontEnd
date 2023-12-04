@@ -23,6 +23,7 @@ const SingleProduct = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const productId = location.pathname.split("/")[2];
+  const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     if (productId) {
       dispatch(getProduct(productId));
@@ -37,7 +38,7 @@ const SingleProduct = () => {
         behavior: "smooth",
       });
     }
-  }, []);
+  }, [productId]);
 
   const productState = useSelector((state) => state.product);
   const productData = productState.productData?.product;
@@ -53,8 +54,8 @@ const SingleProduct = () => {
   };
 
   const props = {
-    width: 400,
-    height: 500,
+    width: 600,
+    height: 600,
     zoomWidth: 600,
     img: productData?.images[0].url,
   };
@@ -130,7 +131,7 @@ const SingleProduct = () => {
                         {productData?.quantity} In Stock
                       </p>
                     </div>
-                    <div className="d-flex gap-10 flex-column my-2 mb-3">
+                    {/* <div className="d-flex gap-10 flex-column my-2 mb-3">
                       <h3 className="product-heading">Size:</h3>
                       <div className="d-flex flex-wrap gap-15">
                         <span className="badge border border-1 border-secondary bg-white text-dark">
@@ -140,7 +141,7 @@ const SingleProduct = () => {
                           M
                         </span>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="d-flex gap-10 flex-column my-2 mb-3">
                       <h3 className="product-heading">Color:</h3>
                       <Color />
@@ -152,10 +153,10 @@ const SingleProduct = () => {
                           type="number"
                           min="1"
                           max="10"
-                          name=""
-                          id=""
+                          name="quantity"
                           className="form-control"
                           style={{ width: "70px" }}
+                          onChange={() => setQuantity}
                         />
                       </div>
                       <div className="d-flex align-items-center gap-30 ms-5">
