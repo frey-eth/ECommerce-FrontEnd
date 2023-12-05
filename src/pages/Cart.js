@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BreadCrumb } from "../components/BreadCrumb";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUserCart, getUserCart } from "../features/user/userSlice";
-import {  Modal } from "antd";
+import { Modal } from "antd";
 
 const { confirm } = Modal;
 
@@ -15,17 +15,27 @@ const Cart = () => {
     dispatch(getUserCart());
   }, []);
   const cartState = useSelector((state) => state.auth.cartProducts);
-
+  const [totalPrice, setTotalPrice] = useState(0);
+  useEffect(() => {
+    if (cartState && cartState.length > 0) {
+      const total = cartState.reduce((accumulator, item) => {
+        return accumulator + item.price * item.quantity;
+      }, 0);
+      setTotalPrice(total);
+    } else {
+      setTotalPrice(0);
+    }
+  }, [cartState]);
   const showDeleteConfirm = (record) => {
     confirm({
       title: "Do you want to delete this blog?",
-      content: `Product: ${record?.productId?.title}`,
+      content: `Title: ${record?.productId?.title}`,
       onOk() {
         dispatch(deleteUserCart(record._id));
       },
     });
   };
-  
+
   return (
     <>
       <BreadCrumb title="cart" />
@@ -96,7 +106,7 @@ const Cart = () => {
                 </Link>
               </div>
               <div className="d-flex align-items-end flex-column">
-                <h4>Total: $1000</h4>
+                <h4>Total: ${totalPrice}</h4>
                 <p>Taxes and shipping calculate at checkout</p>
                 <Link className="button" to="/checkout">
                   Checkout

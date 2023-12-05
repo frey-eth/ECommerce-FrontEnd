@@ -9,7 +9,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { FaShippingFast } from "react-icons/fa";
 import { BsShare } from "react-icons/bs";
 import Container from "../components/Container";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToWishList,
@@ -25,6 +25,7 @@ const SingleProduct = () => {
   const [orderedProduct, setOrderedProduct] = useState(true);
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const productId = location.pathname.split("/")[2];
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState(null);
@@ -182,6 +183,7 @@ const SingleProduct = () => {
                                 price: productData?.price,
                               };
                               dispatch(addProductToCart(values));
+                              navigate("/cart");
                             }
                           }}
                         >

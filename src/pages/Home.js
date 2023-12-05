@@ -13,7 +13,6 @@ import PopularCard from "../components/PopularCard";
 
 const Home = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(getAllBlog());

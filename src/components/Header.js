@@ -1,8 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserCart } from "../features/user/userSlice";
+
 export const Header = (props) => {
   const { isLogin } = props;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (isLogin !== undefined) {
+      dispatch(getUserCart());
+    }
+  }, []);
+  const cartState = useSelector((state) => state.auth.cartProducts);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    if (cartState && cartState.length > 0) {
+      const total = cartState.reduce((accumulator, item) => {
+        return accumulator + item.price * item.quantity;
+      }, 0);
+      setTotalPrice(total);
+    } else {
+      setTotalPrice(0);
+    }
+  }, [cartState]);
   return (
     <>
       <header className="header-top-strip py-3">
@@ -121,9 +143,11 @@ export const Header = (props) => {
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src="/images/cart.svg" alt="cart" />
-                    <div className="d-flex flex-column gap-10 p-2">
-                      <span className="badge bg-white text-dark">0</span>
-                      <p className="mb-0">$500</p>
+                    <div className="d-flex flex-column p-2">
+                      <span className="badge bg-white text-dark">
+                        {cartState?.length || "0"}
+                      </span>
+                      <p className="mb-0">${totalPrice}</p>
                     </div>
                   </Link>
                 </div>
