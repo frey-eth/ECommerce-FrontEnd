@@ -91,8 +91,11 @@ const Cart = () => {
                               _id: item?._id,
                               quantity: e.target.value,
                             };
-                            dispatch(updateProductQuantityFromCart(cartDetail));
-                            setTrigger(!trigger);
+                            dispatch(updateProductQuantityFromCart(cartDetail))
+                              .unwrap()
+                              .then(() => {
+                                setTrigger(!trigger);
+                              });
                           }}
                           className="form-control"
                           style={{ width: "70px" }}
