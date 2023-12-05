@@ -4,6 +4,7 @@ import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserWishList } from "../features/user/userSlice";
 import { addToWishList } from "../features/products/productSlice";
+import { Link } from "react-router-dom";
 
 const Wishlist = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,12 @@ const Wishlist = () => {
                       />
                     </div>
                     <div className="px-2 py-3">
-                      <h5 className="title text-uppercase">{item.title}</h5>
+                      <Link
+                        to={`/product/${item._id}`}
+                        className="title text-uppercase text-dark"
+                      >
+                        {item.title}
+                      </Link>
                       <h6 className="price">${item.price}</h6>
                     </div>
                   </div>

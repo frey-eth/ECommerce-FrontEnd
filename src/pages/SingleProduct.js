@@ -17,6 +17,9 @@ import {
   getProduct,
 } from "../features/products/productSlice";
 import Loading from "../components/Loading";
+import { getTokenFromLocalStorage } from "../utils/axiosConfig";
+import { addProductToCart } from "../features/user/userSlice";
+import { toast } from "react-toastify";
 
 const SingleProduct = () => {
   const [orderedProduct, setOrderedProduct] = useState(true);
@@ -24,6 +27,7 @@ const SingleProduct = () => {
   const dispatch = useDispatch();
   const productId = location.pathname.split("/")[2];
   const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState(null);
   useEffect(() => {
     if (productId) {
       dispatch(getProduct(productId));
@@ -142,9 +146,12 @@ const SingleProduct = () => {
                         </span>
                       </div>
                     </div> */}
-                    <div className="d-flex gap-10 flex-column my-2 mb-3">
+                    <div className="d-flex gap-10 flex-column my-2">
                       <h3 className="product-heading">Color:</h3>
-                      <Color />
+                      <Color
+                        setColor={setColor}
+                        colorData={productData.color}
+                      />
                     </div>
                     <div className="d-flex gap-10 flex-row align-items-center my-2 mb-3">
                       <h3 className="product-heading">Quantity:</h3>
@@ -156,11 +163,30 @@ const SingleProduct = () => {
                           name="quantity"
                           className="form-control"
                           style={{ width: "70px" }}
-                          onChange={() => setQuantity}
+                          onChange={(e) => setQuantity(e.target.value)}
                         />
                       </div>
                       <div className="d-flex align-items-center gap-30 ms-5">
-                        <button className="button border-0">Add to Cart</button>
+                        <button
+                          className="button border-0"
+                          onClick={() => {
+                            if (color === null) {
+                              toast.error("Please Choose an color");
+                            } else {
+                              const userId = getTokenFromLocalStorage._id;
+                              const values = {
+                                userId: userId,
+                                quantity: quantity,
+                                productId: productId,
+                                color: color,
+                                price: productData?.price,
+                              };
+                              dispatch(addProductToCart(values));
+                            }
+                          }}
+                        >
+                          Add to Cart
+                        </button>
                         <button className="button border-0">Buy it Now</button>
                       </div>
                     </div>

@@ -34,6 +34,39 @@ export const getUserWishList = createAsyncThunk(
   }
 );
 
+export const addProductToCart = createAsyncThunk(
+  "auth/add-product-to-cart",
+  async (cartData, thunkAPI) => {
+    try {
+      return await authService.addProductToCart(cartData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const getUserCart = createAsyncThunk(
+  "auth/get-Cart",
+  async (thunkAPI) => {
+    try {
+      return await authService.getUserCart();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteUserCart = createAsyncThunk(
+  "auth/delete-Cart",
+  async (id, thunkAPI) => {
+    try {
+      return await authService.deleteUserCart(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const getCustomerFromLocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
   : null;
@@ -107,6 +140,57 @@ export const authSlice = createSlice({
         state.wishlist = action.payload;
       })
       .addCase(getUserWishList.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.error;
+      })
+      //Add Product To Cart
+      .addCase(addProductToCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addProductToCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.cardProduct = action.payload;
+        toast.success("Product is added to cart!");
+      })
+      .addCase(addProductToCart.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.error;
+      })
+      //get User cart
+      .addCase(getUserCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUserCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.cartProducts = action.payload;
+      })
+      .addCase(getUserCart.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.error;
+      })
+      //delete a cart
+      .addCase(deleteUserCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteUserCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.cartProducts = state.cartProducts.filter(
+          (cart) => cart._id !== action.payload._id
+        );
+      })
+      .addCase(deleteUserCart.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
