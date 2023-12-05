@@ -4,16 +4,22 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUserCart, getUserCart } from "../features/user/userSlice";
+import {
+  deleteUserCart,
+  getUserCart,
+  updateProductQuantityFromCart,
+} from "../features/user/userSlice";
 import { Modal } from "antd";
 
 const { confirm } = Modal;
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const [trigger, setTrigger] = useState(false);
+
   useEffect(() => {
     dispatch(getUserCart());
-  }, []);
+  }, [trigger]);
   const cartState = useSelector((state) => state.auth.cartProducts);
   const [totalPrice, setTotalPrice] = useState(0);
   useEffect(() => {
@@ -79,8 +85,15 @@ const Cart = () => {
                           type="number"
                           min="1"
                           max="10"
-                          name=""
-                          value={item?.quantity}
+                          defaultValue={item?.quantity}
+                          onChange={(e) => {
+                            const cartDetail = {
+                              _id: item?._id,
+                              quantity: e.target.value,
+                            };
+                            dispatch(updateProductQuantityFromCart(cartDetail));
+                            setTrigger(!trigger);
+                          }}
                           className="form-control"
                           style={{ width: "70px" }}
                         />

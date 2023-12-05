@@ -18,11 +18,12 @@ import {
 } from "../features/products/productSlice";
 import Loading from "../components/Loading";
 import { getTokenFromLocalStorage } from "../utils/axiosConfig";
-import { addProductToCart } from "../features/user/userSlice";
+import { addProductToCart, getUserCart } from "../features/user/userSlice";
 import { toast } from "react-toastify";
 
 const SingleProduct = () => {
   const [orderedProduct, setOrderedProduct] = useState(true);
+  const [alreadyAdded, setAlreadyAdded] = useState(false);
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const SingleProduct = () => {
     if (productId) {
       dispatch(getProduct(productId));
       dispatch(getAllProducts());
+      dispatch(getUserCart());
     }
   }, [productId]);
 
@@ -46,10 +48,21 @@ const SingleProduct = () => {
   }, [productId]);
 
   const productState = useSelector((state) => state.product);
+  const cartState = useSelector((state) => state.auth.cartProducts);
   const productData = productState.productData?.product;
   const popularProducts = productState.products.filter(
     (product) => product.tag == "popular"
   );
+
+  useEffect(() => {
+    for (let idx = 0; idx < cartState?.length; idx++) {
+      if (productId === cartState[idx]?.productId?._id) {
+        setAlreadyAdded(true);
+        break;
+      }
+    }
+  }, [cartState]);
+
   const copyToClipboard = async (link) => {
     try {
       await navigator.clipboard.writeText(link);
@@ -147,30 +160,38 @@ const SingleProduct = () => {
                         </span>
                       </div>
                     </div> */}
-                    <div className="d-flex gap-10 flex-column my-2">
-                      <h3 className="product-heading">Color:</h3>
-                      <Color
-                        setColor={setColor}
-                        colorData={productData.color}
-                      />
-                    </div>
-                    <div className="d-flex gap-10 flex-row align-items-center my-2 mb-3">
-                      <h3 className="product-heading">Quantity:</h3>
-                      <div className="">
-                        <input
-                          type="number"
-                          min="1"
-                          max="10"
-                          name="quantity"
-                          className="form-control"
-                          style={{ width: "70px" }}
-                          onChange={(e) => setQuantity(e.target.value)}
-                        />
-                      </div>
-                      <div className="d-flex align-items-center gap-30 ms-5">
-                        <button
-                          className="button border-0"
-                          onClick={() => {
+                    {alreadyAdded === false && (
+                      <>
+                        <div className="d-flex gap-10 flex-column my-2">
+                          <h3 className="product-heading">Color:</h3>
+                          <Color
+                            setColor={setColor}
+                            colorData={productData.color}
+                          />
+                        </div>
+                        <div className="d-flex gap-10 flex-row align-items-center my-2 mb-3">
+                          <h3 className="product-heading">Quantity:</h3>
+                          <div className="">
+                            <input
+                              type="number"
+                              min="1"
+                              max="10"
+                              name="quantity"
+                              className="form-control"
+                              style={{ width: "70px" }}
+                              onChange={(e) => setQuantity(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                      </>
+                    )}
+                    <div className="d-flex flex-row align-items-center gap-30 py-3">
+                      <button
+                        className="button border-0"
+                        onClick={() => {
+                          if (alreadyAdded) {
+                            navigate("/cart");
+                          } else {
                             if (color === null) {
                               toast.error("Please Choose an color");
                             } else {
@@ -185,12 +206,14 @@ const SingleProduct = () => {
                               dispatch(addProductToCart(values));
                               navigate("/cart");
                             }
-                          }}
-                        >
-                          Add to Cart
-                        </button>
+                          }
+                        }}
+                      >
+                        {alreadyAdded === false ? "Add to Cart" : "Go to card"}
+                      </button>
+                      {alreadyAdded === false && (
                         <button className="button border-0">Buy it Now</button>
-                      </div>
+                      )}
                     </div>
                     <div className="d-flex gap-15 align-items-center flex-row">
                       <div>

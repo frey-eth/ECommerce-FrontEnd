@@ -36,6 +36,15 @@ const deleteUserCart = async (id) => {
   return response.data;
 };
 
+const updateProductQuantityFromCart = async (cartDetail) => {
+  const response = await axios.put(
+    `${baseUrl}user/cart/update-cart/${cartDetail._id}/${cartDetail.quantity}`,
+    null,
+    config
+  );
+  return response.data;
+};
+
 export const authService = {
   register,
   login,
@@ -43,4 +52,5 @@ export const authService = {
   addProductToCart,
   getUserCart,
   deleteUserCart,
+  updateProductQuantityFromCart,
 };
