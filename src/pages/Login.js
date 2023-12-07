@@ -28,6 +28,7 @@ const Login = () => {
     }
   }, [isSuccess, isLoading, isError, user, forceUpdate]);
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
       email: "",
       password: "",

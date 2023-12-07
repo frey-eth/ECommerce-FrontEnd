@@ -8,17 +8,35 @@ import { useDispatch, useSelector } from "react-redux";
 import Container from "../components/Container";
 import { getUserCart } from "../features/user/userSlice";
 import { getTokenFromLocalStorage } from "../utils/axiosConfig";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { getCoupons } from "../features/coupon/couponSlice";
+
+const orderValidationSchema = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  phoneNumber: Yup.string().required("Phone number is required"),
+  city: Yup.string().required("City is required"),
+  district: Yup.string().required("District is required"),
+  address: Yup.string().required("Address is required"),
+});
 
 const Checkout = () => {
   const dispatch = useDispatch();
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
   const [districts, setDistricts] = useState([]);
+  const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
   const [shipCost, setShipCost] = useState(20);
   const userData = getTokenFromLocalStorage;
 
   useEffect(() => {
+    formik.values.city = selectedCity?.name;
+    formik.values.district = selectedDistrict?.name;
+  }, [selectedCity, selectedDistrict]);
+
+  useEffect(() => {
+    dispatch(getCoupons());
     fetch("https://provinces.open-api.vn/api/?depth=2")
       .then((response) => response.json())
       .then((data) => {
@@ -28,7 +46,9 @@ const Checkout = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getUserCart());
+    if (getTokenFromLocalStorage._id !== undefined) {
+      dispatch(getUserCart());
+    }
   }, []);
   const cartState = useSelector((state) => state.auth.cartProducts);
   useEffect(() => {
@@ -63,10 +83,42 @@ const Checkout = () => {
     const selectedDistrictCode = parseInt(event.target.value);
     if (!isNaN(selectedDistrictCode)) {
       const selectedDistrict = districts.find(
-        (district) => district.code == selectedDistrictCode
+        (district) => district.code === selectedDistrictCode
       );
+      setSelectedDistrict(selectedDistrict);
     }
   };
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      phoneNumber: "",
+      city: "",
+      district: "",
+      address: "",
+    },
+    validationSchema: orderValidationSchema,
+    onSubmit: (values) => {
+      // Handle form submission logic here
+      const orderData = {
+        user: getTokenFromLocalStorage?._id,
+        orderItems: {
+          ...cartState,
+        },
+        shippingInfo: {
+          name: values.name,
+          mobile: values.phoneNumber,
+          city: values.city,
+          district: values.district,
+          address: values.address,
+        },
+        totalPrice: totalPrice + shipCost,
+        totalPriceAfterDiscount: totalPrice + shipCost,
+      };
+      console.log(orderData);
+      // Continue with your logic to submit the orderData
+    },
+  });
 
   return (
     <>
@@ -105,7 +157,7 @@ const Checkout = () => {
               </p>
               <h4 className="mb-3">Shipping Address</h4>
               <form
-                action=""
+                onSubmit={formik.handleSubmit}
                 className="d-flex gap-15 justify-content-between flex-wrap flex-column"
               >
                 <div className="">
@@ -114,15 +166,22 @@ const Checkout = () => {
                     id="name"
                     className="d-flex align-items-center mb-2"
                   >
-                    <BiUser />
-                    Họ và Tên
+                    <BiUser className="mx-2" />
+                    Full Name
                   </label>
                   <input
                     type="text"
                     className="form-control"
                     id="name"
+                    name="name"
                     placeholder="Name"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.name}
                   />
+                  {formik.touched.name && formik.errors.name ? (
+                    <div className="error">{formik.errors.name}</div>
+                  ) : null}
                 </div>
 
                 <div className="d-flex flex-column">
@@ -131,19 +190,26 @@ const Checkout = () => {
                     id="phoneNumber"
                     className="d-flex align-items-center mb-2"
                   >
-                    <BsTelephone /> Số điện thoại
+                    <BsTelephone className="mx-2" /> Phone Number
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     className="form-control"
-                    id="name"
-                    placeholder="Phone number"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="Phone Number"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.phoneNumber}
                   />
+                  {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+                    <div className="error">{formik.errors.phoneNumber}</div>
+                  ) : null}
                 </div>
 
                 <div>
                   <label htmlFor="cityDropdown" className="mb-2">
-                    <ImLocation /> Tỉnh, thành phố
+                    <ImLocation className="mx-2" /> City
                   </label>
                   <select
                     id="cityDropdown"
@@ -151,30 +217,36 @@ const Checkout = () => {
                     value={selectedCity ? selectedCity.code : ""}
                     className="form-control"
                   >
-                    <option value="">Chọn tỉnh/ thành phố</option>
+                    <option value="">Select City</option>
                     {cities.map((city) => (
                       <option key={city.code} value={city.code}>
                         {city.name}
                       </option>
                     ))}
                   </select>
+                  {formik.touched.city && formik.errors.city ? (
+                    <div className="error">{formik.errors.city}</div>
+                  ) : null}
                 </div>
                 <div className="d-flex flex-column mb-2">
                   <label htmlFor="districtDropdown " className="mb-2">
-                    <ImLocation /> Quận, huyện
+                    <ImLocation className="mx-2" /> District
                   </label>
                   <select
                     id="districtDropdown"
                     className="form-control"
                     onChange={handleDistrictChange}
                   >
-                    <option value="">Chọn quận/ huyện</option>
+                    <option value="">Select District</option>
                     {districts.map((district) => (
                       <option key={district.code} value={district.code}>
                         {district.name}
                       </option>
                     ))}
                   </select>
+                  {formik.touched.district && formik.errors.district ? (
+                    <div className="error">{formik.errors.district}</div>
+                  ) : null}
                 </div>
                 <div className="">
                   <label
@@ -182,12 +254,17 @@ const Checkout = () => {
                     id="address"
                     className="d-flex align-items-center mb-2"
                   >
-                    <ImLocation /> Địa chỉ
+                    <ImLocation className="mx-2" /> Address
                   </label>
                   <input
                     type="text"
                     className="form-control"
                     placeholder="22 Quang Trung, Phường 6,..."
+                    id="address"
+                    name="address"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.address}
                   />
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
@@ -195,7 +272,9 @@ const Checkout = () => {
                     <IoIosArrowBack />
                     Return to Cart
                   </Link>
-                  <Link className="button">Continue to shipping</Link>
+                  <button className="button" type="submit">
+                    Continue to shipping
+                  </button>
                 </div>
               </form>
             </div>
