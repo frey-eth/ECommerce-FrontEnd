@@ -67,7 +67,7 @@ const ProductCard = (props) => {
               <img src="/images/prodcompare.svg" alt="addcard" />
             </button>
             <Link
-              to={`product/${data._id}`}
+              to={`/product/${data._id}`}
               className="border-0 bg-transparent"
             >
               <img src="/images/view.svg" alt="addcard" />

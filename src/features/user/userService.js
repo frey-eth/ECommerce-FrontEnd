@@ -59,6 +59,11 @@ const emptyUserCart = async () => {
   return response.data;
 };
 
+const getUserOrder = async () => {
+  const response = await axios.get(`${baseUrl}user/get-user-order`, config);
+  return response.data;
+};
+
 export const authService = {
   register,
   login,
@@ -69,4 +74,5 @@ export const authService = {
   updateProductQuantityFromCart,
   createOrder,
   emptyUserCart,
+  getUserOrder,
 };
