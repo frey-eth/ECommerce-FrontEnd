@@ -54,6 +54,11 @@ const createOrder = async (orderData) => {
   return response.data;
 };
 
+const emptyUserCart = async () => {
+  const response = await axios.delete(`${baseUrl}user/cart/empty-cart`, config);
+  return response.data;
+};
+
 export const authService = {
   register,
   login,
@@ -63,4 +68,5 @@ export const authService = {
   deleteUserCart,
   updateProductQuantityFromCart,
   createOrder,
+  emptyUserCart,
 };

@@ -176,11 +176,11 @@ const Home = () => {
         </div>
         <div className="row">
           {productState &&
-            productState?.map((item, index) => {
+            productState?.map((item) => {
               if (item.tag === "special")
                 return (
                   <SpecialProduct
-                    key={index}
+                    key={item?._id}
                     title={item.title}
                     brand={item.brand}
                     images={item.images}

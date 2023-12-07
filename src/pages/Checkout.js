@@ -6,7 +6,11 @@ import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Container from "../components/Container";
-import { getUserCart } from "../features/user/userSlice";
+import {
+  createOrder,
+  emptyUserCart,
+  getUserCart,
+} from "../features/user/userSlice";
 import { getTokenFromLocalStorage } from "../utils/axiosConfig";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -28,15 +32,17 @@ const Checkout = () => {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
   const [shipCost, setShipCost] = useState(20);
+  const [coupon, setCoupon] = useState("");
+  const [discount, setDiscount] = useState(0);
   const userData = getTokenFromLocalStorage;
 
   useEffect(() => {
     formik.values.city = selectedCity?.name;
     formik.values.district = selectedDistrict?.name;
-  }, [selectedCity, selectedDistrict]);
+    formik.values.discount = discount;
+  }, [selectedCity, selectedDistrict, discount]);
 
   useEffect(() => {
-    dispatch(getCoupons());
     fetch("https://provinces.open-api.vn/api/?depth=2")
       .then((response) => response.json())
       .then((data) => {
@@ -46,11 +52,14 @@ const Checkout = () => {
   }, []);
 
   useEffect(() => {
+    dispatch(getCoupons());
     if (getTokenFromLocalStorage._id !== undefined) {
       dispatch(getUserCart());
     }
   }, []);
+
   const cartState = useSelector((state) => state.auth.cartProducts);
+  const couponState = useSelector((state) => state.coupon.coupons);
   useEffect(() => {
     if (cartState && cartState.length > 0) {
       const total = cartState.reduce((accumulator, item) => {
@@ -96,15 +105,14 @@ const Checkout = () => {
       city: "",
       district: "",
       address: "",
+      discount: discount,
     },
     validationSchema: orderValidationSchema,
     onSubmit: (values) => {
       // Handle form submission logic here
       const orderData = {
         user: getTokenFromLocalStorage?._id,
-        orderItems: {
-          ...cartState,
-        },
+        orderItems: [...cartState],
         shippingInfo: {
           name: values.name,
           mobile: values.phoneNumber,
@@ -113,10 +121,12 @@ const Checkout = () => {
           address: values.address,
         },
         totalPrice: totalPrice + shipCost,
-        totalPriceAfterDiscount: totalPrice + shipCost,
+        totalPriceAfterDiscount:
+          (totalPrice + shipCost) * (1 - values.discount / 100),
       };
-      console.log(orderData);
-      // Continue with your logic to submit the orderData
+      dispatch(createOrder(orderData))
+        .unwrap()
+        .then(() => dispatch(emptyUserCart()));
     },
   });
 
@@ -325,10 +335,47 @@ const Checkout = () => {
                 <p className="total">Subtotal</p>
                 <p className="total-price">${totalPrice}</p>
               </div>
+              <div className="border-0 mt-2">
+                <div className="input-group">
+                  <input
+                    id="coupon"
+                    type="text"
+                    className="form-control"
+                    placeholder="Coupon"
+                    aria-label="Coppon"
+                    onChange={(e) => setCoupon(e.target.value.toUpperCase())}
+                  />
+                  <div className="input-group-append mx-1">
+                    <button
+                      className="btn btn-outline-secondary"
+                      type="button"
+                      onClick={() => {
+                        let foundDiscount = 0;
+                        couponState?.some((item) => {
+                          if (item?.name == coupon) {
+                            foundDiscount = item?.discount;
+                            return true;
+                          }
+                          return false;
+                        });
+                        setDiscount(foundDiscount);
+                      }}
+                    >
+                      Apply
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="d-flex justify-content-between justify-content-center mt-2">
-              <p className="total">Total</p>
-              <p className="total-price">${totalPrice + shipCost}</p>
+              <p className="total">Discount</p>
+              <p className="total-price">{discount}%</p>
+            </div>
+            <div className="d-flex justify-content-between justify-content-center mt-2">
+              <p className="total">Total After Discount</p>
+              <p className="total-price">
+                ${((totalPrice + shipCost) * (100 - discount)) / 100}
+              </p>
             </div>
           </div>
         </div>
