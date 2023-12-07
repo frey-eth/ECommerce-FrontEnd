@@ -3,7 +3,7 @@ import { ImLocation } from "react-icons/im";
 import { BiUser } from "react-icons/bi";
 import { BsTelephone } from "react-icons/bs";
 import { IoIosArrowBack } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Container from "../components/Container";
 import {
@@ -25,6 +25,7 @@ const orderValidationSchema = Yup.object().shape({
 });
 
 const Checkout = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
@@ -126,7 +127,10 @@ const Checkout = () => {
       };
       dispatch(createOrder(orderData))
         .unwrap()
-        .then(() => dispatch(emptyUserCart()));
+        .then(() => {
+          dispatch(emptyUserCart());
+          navigate("/product");
+        });
     },
   });
 

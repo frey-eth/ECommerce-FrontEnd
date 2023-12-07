@@ -111,6 +111,16 @@ export const getUserOrder = createAsyncThunk(
   }
 );
 
+export const deleteUserOrder = createAsyncThunk(
+  "auth/delete-Order",
+  async (id, thunkAPI) => {
+    try {
+      return await authService.deleteUserOrder(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 const getCustomerFromLocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
@@ -308,6 +318,25 @@ export const authSlice = createSlice({
         state.isError = true;
         state.message = action.error;
       })
+      //delete user order
+      .addCase(deleteUserOrder.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteUserOrder.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.orderedData = state.orderedData?.filter(
+          (item) => item._id !== action.payload._id
+        );
+        toast.error("You have deleted this order!");
+      })
+      .addCase(deleteUserOrder.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.error;
+      });
   },
 });
 

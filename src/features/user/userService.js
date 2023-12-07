@@ -64,6 +64,14 @@ const getUserOrder = async () => {
   return response.data;
 };
 
+const deleteUserOrder = async (id) => {
+  const response = await axios.delete(
+    `${baseUrl}user/delete-order/${id}`,
+    config
+  );
+  return response.data;
+};
+
 export const authService = {
   register,
   login,
@@ -75,4 +83,5 @@ export const authService = {
   createOrder,
   emptyUserCart,
   getUserOrder,
+  deleteUserOrder,
 };

@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { BreadCrumb } from "../components/BreadCrumb";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { BsCart4 } from "react-icons/bs";
+import { TbShoppingCartCancel } from "react-icons/tb";
+import { FaClockRotateLeft } from "react-icons/fa6";
+import { MdOutlineDoneOutline } from "react-icons/md";
+
 import {
   deleteUserCart,
+  deleteUserOrder,
   getUserCart,
   getUserOrder,
   updateProductQuantityFromCart,
@@ -18,7 +23,7 @@ const { confirm } = Modal;
 const Cart = () => {
   const dispatch = useDispatch();
   const [trigger, setTrigger] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getUserOrder());
   }, []);
@@ -41,10 +46,19 @@ const Cart = () => {
   }, [cartState]);
   const showDeleteConfirm = (record) => {
     confirm({
-      title: "Do you want to delete this blog?",
-      content: `Title: ${record?.productId?.title}`,
+      title: "Do You Want To Delete This Product?",
       onOk() {
         dispatch(deleteUserCart(record._id));
+      },
+    });
+  };
+
+  const showCancelConfirm = (record) => {
+    confirm({
+      title: "Do you want to delete cancel this order?",
+      onOk() {
+        dispatch(deleteUserOrder(record._id));
+        dispatch(getUserOrder());
       },
     });
   };
@@ -156,44 +170,62 @@ const Cart = () => {
           <h6 className="">YOUR ORDERED</h6>
           <div className="d-flex flex-column">
             {orderState?.map((order) => (
-              <div
-                key={order._id}
-                className="my-1 border-2 bg-white rounded-2 justify-content-between d-flex flex-row align-items-center"
-              >
-                <div>
-                  {order?.orderItems?.map((item) => (
-                    <div
-                      key={item._id}
-                      className="d-flex align-items-center flex-row p-2"
+              <div className="d-flex justify-content-between align-items-center">
+                <div
+                  key={order._id}
+                  className="my-1 border-2 bg-white rounded-2 justify-content-between d-flex flex-row align-items-center w-100"
+                >
+                  <div>
+                    {order?.orderItems?.map((item) => (
+                      <div
+                        key={item._id}
+                        className="d-flex align-items-center flex-row p-2"
+                      >
+                        <img
+                          src={item?.productId?.images[0].url}
+                          style={{ height: "50px" }}
+                        />
+                        <h6 className="text-uppercase mx-2 align-items-center">
+                          {item?.productId?.title}
+                          <p
+                            style={{
+                              fontSize: "12px",
+                              textTransform: "none",
+                            }}
+                          >
+                            Quantity: {item.quantity}
+                          </p>
+                        </h6>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="d-flex flex-column m-3 align-items-end">
+                    <p
+                      className="badge text-bg-success"
+                      style={{ height: "20px", width: "100px" }}
                     >
-                      <img
-                        src={item?.productId?.images[0].url}
-                        style={{ height: "50px" }}
-                      />
-                      <h6 className="text-uppercase mx-2 align-items-center">
-                        {item?.productId?.title}
-                        <p
-                          style={{
-                            fontSize: "12px",
-                            textTransform: "none",
-                          }}
-                        >
-                          Quantity: {item.quantity}
-                        </p>
-                      </h6>
-                    </div>
-                  ))}
+                      {order?.orderStatus}
+                    </p>
+                    <p className="text-success p-0 m-0">
+                      ${order.totalPriceAfterDiscount}
+                    </p>
+                  </div>
                 </div>
-                <div className="d-flex flex-column m-3 align-items-end">
-                  <p
-                    className="badge text-bg-success"
-                    style={{ height: "20px", width: "100px" }}
-                  >
-                    {order?.orderStatus}
-                  </p>
-                  <p className="text-success p-0 m-0">
-                    ${order.totalPriceAfterDiscount}
-                  </p>
+                <div className="p-2">
+                  {order?.orderStatus === "Ordered" ? (
+                    <TbShoppingCartCancel
+                      className="fs-2 text-danger"
+                      id="cancel order"
+                      onClick={() => {
+                        showCancelConfirm(order);
+                      }}
+                      type="button"
+                    />
+                  ) : order?.orderStatus === "In Progress" ? (
+                    <FaClockRotateLeft className="fs-2 text-warning" />
+                  ) : (
+                    <MdOutlineDoneOutline className="fs-2 text-success" />
+                  )}
                 </div>
               </div>
             ))}
