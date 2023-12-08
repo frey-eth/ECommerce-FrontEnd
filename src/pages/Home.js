@@ -167,14 +167,13 @@ const Home = () => {
             })}
         </div>
       </Container>
-
       <Container class1="special-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
             <h3 className="special-heading">Special Products</h3>
           </div>
         </div>
-        <div className="row">
+        <div className="d-flex flex-wrap gap-10">
           {productState &&
             productState?.map((item) => {
               if (item.tag === "special")
@@ -199,19 +198,17 @@ const Home = () => {
           <div className="col-12">
             <h3 className="section-heading">Our Popular Products</h3>
           </div>
-          <div className="row">
+          <div className="d-flex flex-wrap">
             {productState &&
               productState?.map((item, index) => {
                 if (item.tag === "popular")
-                  return (
-                    <>
-                      <PopularCard key={index} data={item} />
-                    </>
-                  );
+                  return <PopularCard key={index} data={item} />;
               })}
           </div>
         </div>
       </Container>
+    
+
       <Container class1="marque-wrapper py-5">
         <div className="row">
           <div className="col-12">

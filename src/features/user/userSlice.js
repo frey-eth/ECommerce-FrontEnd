@@ -122,6 +122,17 @@ export const deleteUserOrder = createAsyncThunk(
   }
 );
 
+export const updateUser = createAsyncThunk(
+  "auth/update-user",
+  async (userDetail, thunkAPI) => {
+    try {
+      return await authService.updateUser(userDetail);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const getCustomerFromLocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
   : null;
@@ -332,6 +343,23 @@ export const authSlice = createSlice({
         toast.error("You have deleted this order!");
       })
       .addCase(deleteUserOrder.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.error;
+      })
+      //update user detail
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.updatedUser = action.payload;
+        toast.success("You have updated profile!");
+      })
+      .addCase(updateUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;

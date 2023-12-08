@@ -173,7 +173,7 @@ const Cart = () => {
               <div className="d-flex justify-content-between align-items-center">
                 <div
                   key={order._id}
-                  className="my-1 border-2 bg-white rounded-2 justify-content-between d-flex flex-row align-items-center w-100"
+                  className="order-item my-1 border-2 bg-white rounded-2 justify-content-between d-flex flex-row align-items-center w-100"
                 >
                   <div>
                     {order?.orderItems?.map((item) => (

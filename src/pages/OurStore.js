@@ -26,7 +26,9 @@ const OurStore = () => {
               <h3 className="filter-title">Shop by Categories</h3>
               <ul className="ps-0">
                 {categoryState.map((category) => (
-                  <li key={category._id}>{category?.title}</li>
+                  <li className="text-uppercase" key={category._id}>
+                    {category?.title}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -79,31 +81,6 @@ const OurStore = () => {
                     <label htmlFor="floatingInput">To</label>
                   </div>
                 </div>
-                <h5 className="sub-title">Colors</h5>
-                <div>
-                  <div className="d-flex flex-wrap">
-                    <ul className="colors ps-0">
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                    </ul>
-                  </div>
-                </div>
-                <h5 className="sub-title">Size</h5>
-                <div>
-                  <div className="form-check">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      value=""
-                      id="color-1"
-                    />
-                    <label className="form-check-label" htmlFor="color-1">
-                      S
-                    </label>
-                  </div>
-                </div>
               </div>
             </div>
             <div className="filter-card mb-3">
@@ -127,48 +104,30 @@ const OurStore = () => {
             </div>
             <div className="filter-card mb-3">
               <h3 className="filter-title">Random Product</h3>
-              <div>
-                <div className="random-products d-flex">
-                  <div className="w-50">
-                    <img
-                      src="/images/watch.jpg"
-                      alt="watch"
-                      className="img-fluid"
-                    />
-                  </div>
-                  <div className="w-50">
-                    <h5>Apple Watch Series 7</h5>
-                    <ReactStars
-                      count={5}
-                      size={24}
-                      value={3}
-                      edit={false}
-                      activeColor="#ffd700"
-                    />
-                    <b>$500</b>
-                  </div>
-                </div>
-                <div className="random-products d-flex">
-                  <div className="w-50">
-                    <img
-                      src="/images/watch.jpg"
-                      alt="watch"
-                      className="img-fluid"
-                    />
-                  </div>
-                  <div className="w-50">
-                    <h5>Apple Watch Series 7</h5>
-                    <ReactStars
-                      count={5}
-                      size={24}
-                      value={3}
-                      edit={false}
-                      activeColor="#ffd700"
-                    />
-                    <b>$500</b>
+              {productState?.slice(0, 3).map((item, index) => (
+                <div key={index}>
+                  <div className="random-products d-flex my-2">
+                    <div className="w-50">
+                      <img
+                        src={item?.images[0].url}
+                        alt="watch"
+                        className="img-fluid"
+                      />
+                    </div>
+                    <div className="w-50">
+                      <h5 className="text-uppercase">{item?.title}</h5>
+                      <ReactStars
+                        count={5}
+                        size={24}
+                        value={item?.totalRating}
+                        edit={false}
+                        activeColor="#ffd700"
+                      />
+                      <b>${item?.price}</b>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
           <div className="col-9">

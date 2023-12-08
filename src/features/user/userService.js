@@ -72,6 +72,11 @@ const deleteUserOrder = async (id) => {
   return response.data;
 };
 
+const updateUser = async (data) => {
+  const response = await axios.put(`${baseUrl}user/edit-user`, data, config);
+  return response.data;
+};
+
 export const authService = {
   register,
   login,
@@ -84,4 +89,5 @@ export const authService = {
   emptyUserCart,
   getUserOrder,
   deleteUserOrder,
+  updateUser,
 };

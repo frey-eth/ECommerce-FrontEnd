@@ -71,8 +71,8 @@ export const Header = (props) => {
               </div>
             </div>
             <div className="col-5">
-              <div className="header-upper-links d-flex align-items-center justify-content-between">
-                <div>
+              <div className="header-upper-links d-flex align-items-center justify-content-end gap-15">
+                {/* <div>
                   <Link
                     to="/compare-product"
                     className="d-flex align-items-center gap-10 text-white"
@@ -82,7 +82,7 @@ export const Header = (props) => {
                       Compare <br /> Product
                     </p>
                   </Link>
-                </div>
+                </div> */}
                 <div>
                   <Link
                     to="/wishlist"
@@ -108,9 +108,9 @@ export const Header = (props) => {
                       </button>
                       <ul className="dropdown-menu">
                         <li>
-                          <button className="dropdown-item" type="button">
+                          <Link className="dropdown-item" to={"/profile"}>
                             Profile
-                          </button>
+                          </Link>
                         </li>
                         <li>
                           <Link

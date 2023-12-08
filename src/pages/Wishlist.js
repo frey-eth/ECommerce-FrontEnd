@@ -26,7 +26,7 @@ const Wishlist = () => {
               userWishListState.map((item, index) => {
                 return (
                   <div className="col-3" key={index}>
-                    <div className="wishlist-card position-relative">
+                    <div className="wishlist-card position-relative mb-4">
                       <img
                         src="/images/cross.svg"
                         alt="cross"
