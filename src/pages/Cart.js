@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BreadCrumb } from "../components/BreadCrumb";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { BsCart4 } from "react-icons/bs";
 import { TbShoppingCartCancel } from "react-icons/tb";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { MdOutlineDoneOutline } from "react-icons/md";
-
 import {
   deleteUserCart,
   deleteUserOrder,
@@ -23,14 +22,12 @@ const { confirm } = Modal;
 const Cart = () => {
   const dispatch = useDispatch();
   const [trigger, setTrigger] = useState(false);
-  const navigate = useNavigate();
-  
   useEffect(() => {
     dispatch(getUserOrder());
   }, []);
   useEffect(() => {
     dispatch(getUserCart());
-  }, [trigger]);
+  }, [ ]);
   const cartState = useSelector((state) => state.auth.cartProducts);
   const orderState = useSelector((state) => state.auth.orderedData);
   const [totalPrice, setTotalPrice] = useState(0);

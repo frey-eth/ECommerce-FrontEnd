@@ -160,11 +160,13 @@ const Home = () => {
           <div className="col-12">
             <h3 className="section-heading">Feature Collections</h3>
           </div>
-          {productState &&
-            productState?.map((item, index) => {
-              if (item.tag === "featured")
-                return <ProductCard key={index} data={item} />;
-            })}
+          <div className="d-flex gap-10 flex-wrap">
+            {productState &&
+              productState?.map((item, index) => {
+                if (item.tag === "featured")
+                  return <ProductCard key={index} data={item} />;
+              })}
+          </div>
         </div>
       </Container>
       <Container class1="special-wrapper py-5 home-wrapper-2">
@@ -207,7 +209,6 @@ const Home = () => {
           </div>
         </div>
       </Container>
-    
 
       <Container class1="marque-wrapper py-5">
         <div className="row">
@@ -248,11 +249,11 @@ const Home = () => {
           <div className="col-12">
             <h3 className="section-heading">Our Latest Blogs</h3>
           </div>
-          <div className="row d-flex">
+          <div className="d-flex flex-wrap gap-10">
             {blogState &&
-              blogState?.slice(0, 4).map((item, index) => {
+              blogState?.slice(0, 3).map((item, index) => {
                 return (
-                  <div className="col-3">
+                  <div className="d-flex">
                     <BlogCard key={index} data={item} style={{ flex: "1" }} />
                   </div>
                 );

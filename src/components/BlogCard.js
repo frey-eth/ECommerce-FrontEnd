@@ -6,7 +6,7 @@ const BlogCard = (props) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
 
   return (
-    <div className="blog-card d-flex h-100" style={data?.style}>
+    <div className="blog-card d-flex" style={data?.style}>
       <Link to={`/blog/${data?._id}`} className="blog-card-link">
         <div className="card-image">
           <img src={data?.images[0].url} alt="blog" className="img-fluid" />
