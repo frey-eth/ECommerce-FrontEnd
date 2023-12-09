@@ -253,7 +253,7 @@ const Home = () => {
             {blogState &&
               blogState?.slice(0, 3).map((item, index) => {
                 return (
-                  <div className="d-flex">
+                  <div className="">
                     <BlogCard key={index} data={item} style={{ flex: "1" }} />
                   </div>
                 );
