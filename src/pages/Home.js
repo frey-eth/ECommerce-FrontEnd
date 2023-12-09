@@ -19,7 +19,7 @@ const Home = () => {
   }, []);
   const blogState = useSelector((state) => state.blog.blogs);
   const productState = useSelector((state) => state.product.products);
-
+  
   return (
     <>
       <Container class1="home-wrapper-2 py-5">

@@ -6,6 +6,7 @@ import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../features/products/productSlice";
 import { getCategories } from "../features/productCategory/categorySlice";
+import { Link } from "react-router-dom";
 
 const OurStore = () => {
   const dispatch = useDispatch();
@@ -115,10 +116,15 @@ const OurStore = () => {
                       />
                     </div>
                     <div className="w-50">
-                      <h5 className="text-uppercase">{item?.title}</h5>
+                      <Link
+                        to={`/product/${item?._id}`}
+                        className="text-uppercase fs-6 text-dark"
+                      >
+                        {item?.title}
+                      </Link>
                       <ReactStars
                         count={5}
-                        size={24}
+                        size={15}
                         value={item?.totalRating}
                         edit={false}
                         activeColor="#ffd700"
@@ -190,7 +196,7 @@ const OurStore = () => {
               </div>
             </div>
             <div className="products-list pb-5">
-              <div className="d-flex flex-wrap gap-10">
+              <div className="d-flex flex-wrap">
                 {productState.map((data, index) => {
                   return <ProductCard key={index} grid={grid} data={data} />;
                 })}

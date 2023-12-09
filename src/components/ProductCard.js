@@ -12,8 +12,9 @@ const ProductCard = (props) => {
   return (
     <div
       className={`${
-        location.pathname === "/product" ? `gr-${grid}` : "col-3"
+        location.pathname === "/product" ? `gr-${grid}` : "w-100"
       } p-2`}
+      style={{ maxWidth: "32%" }}
     >
       <div className="product-card position-relative h-100">
         <div className="wishlist-icon position-absolute">
@@ -51,7 +52,7 @@ const ProductCard = (props) => {
           <h5 className="product-title text-uppercase">{data.title}</h5>
           <ReactStars
             count={5}
-            size={24}
+            size={15}
             value={data?.totalRating * 1}
             edit={false}
             activeColor="#ffd700"
