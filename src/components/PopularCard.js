@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const PopularCard = (props) => {
   const { data } = props;
   return (
-    <div className="popular-card-wrapper m-3 gap-10 flex-grow-1">
+    <div className="popular-card-wrapper m-3 gap-10 flex-fill">
       <div className="wrapper">
         <img
           src={data.images[0].url}
@@ -16,7 +16,7 @@ const PopularCard = (props) => {
       </div>
       <div className="button-wrapper">
         <p> ${data.price}</p>
-        <Link className="p-btn outline" to={`/product/${data?._id}`}>
+        <Link className="p-btn outline m-2" to={`/product/${data?._id}`}>
           DETAILS
         </Link>
         <button className="p-btn fill">BUY NOW</button>

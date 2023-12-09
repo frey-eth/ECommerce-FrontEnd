@@ -12,7 +12,7 @@ const ProductCard = (props) => {
   return (
     <div
       className={`${
-        location.pathname === "/product" ? `gr-${grid}` : "w-100"
+        location.pathname === "/product" ? `gr-${grid}` : "col-3"
       } p-2`}
       style={{ maxWidth: "32%" }}
     >
@@ -57,9 +57,6 @@ const ProductCard = (props) => {
             edit={false}
             activeColor="#ffd700"
           />
-          <p className={`description ${grid == 12 ? "d-block" : "d-none"}`}>
-            {data.description}
-          </p>
           <p className="price">{data.price}$</p>
         </Link>
         <div className="action-bar position-absolute">

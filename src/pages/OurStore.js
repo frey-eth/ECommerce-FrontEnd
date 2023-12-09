@@ -20,7 +20,7 @@ const OurStore = () => {
   return (
     <>
       <BreadCrumb title="Store" />
-      <Container class1="store-wrapper home-wrapper-2 py-3">
+      <Container class1="store-wrapper home-wrapper-2 py-3 d-flex flex-wrap">
         <div className="row">
           <div className="col-3">
             <div className="filter-card mb-3">
@@ -175,28 +175,12 @@ const OurStore = () => {
                         setGrid(4);
                       }}
                     />
-                    <img
-                      src="/images/gr2.svg"
-                      alt="grid"
-                      className="img-fluid d-block"
-                      onClick={() => {
-                        setGrid(6);
-                      }}
-                    />
-                    <img
-                      src="/images/gr.svg"
-                      alt="grid"
-                      className="img-fluid d-block"
-                      onClick={() => {
-                        setGrid(12);
-                      }}
-                    />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="products-list pb-5">
-              <div className="d-flex flex-wrap">
+            <div className="products-list">
+              <div className="d-flex flex-wrap justify-content-between">
                 {productState.map((data, index) => {
                   return <ProductCard key={index} grid={grid} data={data} />;
                 })}
