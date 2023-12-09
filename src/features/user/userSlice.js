@@ -133,6 +133,28 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+export const forgotPasswordToken = createAsyncThunk(
+  "auth/password/token",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.forgotPasswordToken(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const resetPasswordToken = createAsyncThunk(
+  "auth/password/resetPassword",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.resetPasswordToken(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const getCustomerFromLocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
   : null;
@@ -360,6 +382,40 @@ export const authSlice = createSlice({
         toast.success("You have updated profile!");
       })
       .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.error;
+      })
+      //forgot password token
+      .addCase(forgotPasswordToken.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(forgotPasswordToken.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.token = action.payload;
+        toast.success("Email send successfully!");
+      })
+      .addCase(forgotPasswordToken.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.error;
+      })
+      //reset password token
+      .addCase(resetPasswordToken.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(resetPasswordToken.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.pass = action.payload;
+        toast.success("Reset Password!");
+      })
+      .addCase(resetPasswordToken.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;

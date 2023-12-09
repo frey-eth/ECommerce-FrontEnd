@@ -2,8 +2,26 @@ import React from "react";
 import { BreadCrumb } from "../components/BreadCrumb";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { forgotPasswordToken } from "../features/user/userSlice";
 
+const forgotPasswordSchema = Yup.object({
+  email: Yup.string().required("Email is required"),
+});
 const Forgotpassword = () => {
+  const dispatch = useDispatch();
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      email: "",
+    },
+    validationSchema: forgotPasswordSchema,
+    onSubmit: (values) => {
+      dispatch(forgotPasswordToken(values));
+    },
+  });
   return (
     <>
       <BreadCrumb title="Forgot Password" />
@@ -15,13 +33,19 @@ const Forgotpassword = () => {
               <p className="text-center">
                 We will send you an email to reset your password
               </p>
-              <form action="" className="d-flex flex-column gap-15">
+              <form
+                onSubmit={formik.handleSubmit}
+                className="d-flex flex-column gap-15"
+              >
                 <div>
                   <input
                     type="email"
                     name="email"
                     placeholder="Email"
                     className="form-control"
+                    onChange={formik.handleChange}
+                    value={formik.values.email}
+                    onBlur={formik.handleBlur}
                   />
                 </div>
                 <div className="d-flex mt-3 justify-content-center gap-15 align-items-center flex-column">

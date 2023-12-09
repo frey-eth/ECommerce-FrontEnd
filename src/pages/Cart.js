@@ -24,10 +24,10 @@ const Cart = () => {
   const dispatch = useDispatch();
   const [trigger, setTrigger] = useState(false);
   const navigate = useNavigate();
+  
   useEffect(() => {
     dispatch(getUserOrder());
   }, []);
-
   useEffect(() => {
     dispatch(getUserCart());
   }, [trigger]);

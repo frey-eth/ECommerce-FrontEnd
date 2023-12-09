@@ -8,15 +8,10 @@ import { getTokenFromLocalStorage } from "../utils/axiosConfig";
 
 const Layout = () => {
   const token = getTokenFromLocalStorage?.token;
-  const [isLogin, setLogin] = useState(false);
-  useEffect(() => {
-    if (token !== undefined) {
-      setLogin(true);
-    }
-  }, [token]);
+
   return (
     <>
-      <Header isLogin={isLogin} />
+      <Header />
       <Outlet />
       <Footer />
       <ToastContainer
