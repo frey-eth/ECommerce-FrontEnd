@@ -1,15 +1,12 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addProductToCart } from "../features/user/userSlice";
 
 function SpecialProduct(props) {
-  const dispatch = useDispatch();
   const { title, brand, images, totalRatings, price, sold, quantity, _id } =
     props;
   return (
-    <div className="flex-grow-1">
+    <div className="flex-grow-1 p-2">
       <div className="special-product-card h-100">
         <div className="d-flex flex-wrap">
           <img

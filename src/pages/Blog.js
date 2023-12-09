@@ -28,9 +28,9 @@ const Blog = () => {
             </div>
           </div>
           <div className="col-9 mb-3">
-            <div className="row">
+            <div className="d-flex flex-wrap">
               {blogState?.map((blog, index) => (
-                <div key={index} className="col-6">
+                <div key={index}>
                   <BlogCard data={blog} />
                 </div>
               ))}

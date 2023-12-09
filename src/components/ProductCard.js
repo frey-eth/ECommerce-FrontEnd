@@ -11,7 +11,9 @@ const ProductCard = (props) => {
 
   return (
     <div
-      className={`${location.pathname === "/product" ? `gr-${grid}` : ""} my-2`}
+      className={`${
+        location.pathname === "/product" ? `gr-${grid}` : "col-3"
+      } p-2`}
     >
       <div className="product-card position-relative h-100">
         <div className="wishlist-icon position-absolute">
@@ -29,14 +31,12 @@ const ProductCard = (props) => {
             src={data.images[0].url}
             alt="product image"
             className="img-fluid"
-            style={{ width: "270px" }}
           />
           {data.images[1] ? (
             <img
               src={data.images[1]?.url}
               alt="product image"
               className="img-fluid"
-              style={{ width: "270px" }}
             />
           ) : (
             <img

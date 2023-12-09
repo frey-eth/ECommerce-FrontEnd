@@ -253,14 +253,14 @@ h1 {
   padding: 20px;
   border-radius: 10px;
   overflow: hidden;
-  height: 350px !important;
-  width: 250px !important;
+  height: 500px;
+  width: 300px !important;
 }
 
 .blog-card img {
-  width: 230px !important;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  width: 250px !important;
 }
 
 .blog-content {
@@ -307,7 +307,7 @@ h1 {
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
-  width: 190px !important;
+  width: 100%;
 }
 .product-card:hover .action-bar {
   right: 10px;
@@ -331,11 +331,11 @@ h1 {
 
 .product-card h6.brand {
   color: var(--color-bf4800);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .product-card h5.product-title {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--color-1c1c1b);
 }
 
@@ -366,9 +366,7 @@ h1 {
   padding: 20px 10px;
   background-color: white;
   border-radius: 12px;
-  margin: 10px;
 }
-
 /*Special Product Card */
 
 /* Famous card */
