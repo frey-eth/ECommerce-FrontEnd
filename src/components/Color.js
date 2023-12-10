@@ -19,7 +19,7 @@ const Color = (props) => {
                 key={index}
                 style={{
                   backgroundColor: item?.colorCode,
-                  transform: isSelected ? "scale(1.3)" : "scale(1)",
+                  transform: isSelected ? "scale(1.5)" : "scale(1)",
                   transition: "transform 0.3s ease",
                 }}
               ></li>
