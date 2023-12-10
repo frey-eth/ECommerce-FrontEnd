@@ -187,24 +187,20 @@ export const Header = () => {
                       aria-expanded="false"
                     >
                       <img src="/images/menu.svg" />
-                      <span className="me-5 d-inline-block mx-3">
-                        Shop Categories
-                      </span>
+                      <span className="d-inline-block mx-3">Action</span>
                     </button>
                     <ul className="dropdown-menu">
                       <li>
-                        <Link className="dropdown-item text-white" to="">
-                          Action
+                        <Link
+                          className="dropdown-item text-white"
+                          to="/product"
+                        >
+                          Store
                         </Link>
                       </li>
                       <li>
-                        <Link className="dropdown-item text-white" to="">
-                          Another action
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item text-white" to="">
-                          Something else here
+                        <Link className="dropdown-item text-white" to="/cart">
+                          Card
                         </Link>
                       </li>
                     </ul>

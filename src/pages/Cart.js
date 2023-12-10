@@ -63,11 +63,11 @@ const Cart = () => {
   return (
     <>
       <BreadCrumb title="cart" />
-      <Container class1="cart-wrapper py-2 home-wrapper-2">
+      <Container class1="cart-wrapper py-5 home-wrapper-2">
         {cartState?.length > 0 ? (
           <div className="row">
             <div className="col-12">
-              <div className="cart-header d-flex justify-content-between align-content-center">
+              <div className="cart-header d-flex align-content-center">
                 <h4 className="cart-col-1">Product</h4>
                 <h4 className="cart-col-2">Price</h4>
                 <h4 className="cart-col-3">Quantity</h4>
@@ -80,7 +80,7 @@ const Cart = () => {
                       key={index}
                       className="cart-data py-3 d-flex justify-content-between"
                     >
-                      <div className="cart-col-1 gap-15 align-items-center d-flex">
+                      <div className="cart-col-1 gap-15 align-items-center d-flex p-2">
                         <div className="w-25">
                           <img
                             src={item?.productId?.images[0].url}

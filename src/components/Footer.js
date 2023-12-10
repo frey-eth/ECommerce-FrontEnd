@@ -104,18 +104,32 @@ export const Footer = () => {
             <div className="col-3">
               <h4 className="text-white mb-4">Account</h4>
               <div className="footer-links d-flex flex-column">
-                <Link className="text-white py-2 mb-1">About Us</Link>
-                <Link className="text-white py-2 mb-1">FAQ</Link>
-                <Link className="text-white py-2 mb-1">Contact</Link>
+                <Link className="text-white py-2 mb-1" to="/contact">
+                  About Us
+                </Link>
+                <Link className="text-white py-2 mb-1" to="/contact">
+                  FAQ
+                </Link>
+                <Link className="text-white py-2 mb-1" to="/contact">
+                  Contact
+                </Link>
               </div>
             </div>
             <div className="col-2">
               <h4 className="text-white mb-4">Quick Links</h4>
               <div className="footer-links d-flex flex-column">
-                <Link className="text-white py-2 mb-1">Clother</Link>
-                <Link className="text-white py-2 mb-1">Glass</Link>
-                <Link className="text-white py-2 mb-1">Watch</Link>
-                <Link className="text-white py-2 mb-1">Sneaker</Link>
+                <Link className="text-white py-2 mb-1" to="/product">
+                  Phone
+                </Link>
+                <Link className="text-white py-2 mb-1" to="/product">
+                  Tablet
+                </Link>
+                <Link className="text-white py-2 mb-1" to="/product">
+                  Watch
+                </Link>
+                <Link className="text-white py-2 mb-1" to="/product">
+                  TV
+                </Link>
               </div>
             </div>
           </div>

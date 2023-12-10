@@ -38,8 +38,8 @@ const Profile = () => {
             </div>
           </div>
           <div className="col-12">
-            <form onSubmit={formik.handleSubmit} className="gap-10">
-              <div className="form-group">
+            <form onSubmit={formik.handleSubmit} className="">
+              <div className="form-group p-2">
                 <label for="exampleInputEmail1">Email address</label>
                 <input
                   type="email"
@@ -55,7 +55,7 @@ const Profile = () => {
                   <div className="error">{formik.errors.email}</div>
                 ) : null}
               </div>
-              <div class="form-group">
+              <div class="form-group p-2">
                 <label for="name">Name</label>
                 <input
                   type="text"
@@ -71,7 +71,7 @@ const Profile = () => {
               {formik.touched.name && formik.errors.name ? (
                 <div className="error">{formik.errors.name}</div>
               ) : null}
-              <div className="d-flex flex-column">
+              <div className="d-flex flex-column p-2">
                 <label htmlFor="mobile" id="mobile">
                   Phone Number
                 </label>
@@ -90,8 +90,8 @@ const Profile = () => {
                 ) : null}
               </div>
 
-              <button type="submit" class="btn btn-primary">
-                Submit
+              <button type="submit" class="btn btn-primary m-2">
+                Save
               </button>
             </form>
           </div>
