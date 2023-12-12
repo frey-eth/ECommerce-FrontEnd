@@ -51,7 +51,7 @@ const Home = () => {
                 />
                 <div className="small-banner-content position-absolute">
                   <h4>Best Seller</h4>
-                  <h5>Macbook</h5>
+                  <h5 className="text-dark">Macbook</h5>
                   <p> $999</p>
                 </div>
               </Link>
@@ -64,7 +64,7 @@ const Home = () => {
                 />
                 <div className="small-banner-content position-absolute">
                   <h4>New Arrival</h4>
-                  <h5>Apple Watch</h5>
+                  <h5 className="text-dark">Apple Watch</h5>
                   <p> $999</p>
                 </div>
               </Link>
@@ -77,7 +77,7 @@ const Home = () => {
                 />
                 <div className="small-banner-content position-absolute">
                   <h4>New Arrival</h4>
-                  <h5>iPad</h5>
+                  <h5 className="text-dark">iPad</h5>
                   <p> $999</p>
                 </div>
               </Link>
@@ -90,7 +90,7 @@ const Home = () => {
                 />
                 <div className="small-banner-content position-absolute">
                   <h4>New Arrival</h4>
-                  <h5>Headphone</h5>
+                  <h5 className="text-dark">Headphone</h5>
                   <p>$999</p>
                 </div>
               </Link>
