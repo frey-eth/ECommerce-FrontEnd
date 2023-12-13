@@ -17,6 +17,7 @@ export const Header = () => {
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
+    dispatch(getUserCart());
     if (cartState && cartState.length > 0) {
       const total = cartState.reduce((accumulator, item) => {
         return accumulator + item.price * item.quantity;
@@ -69,7 +70,7 @@ export const Header = () => {
                 </Link>
               </h2>
             </div>
-            <div className="col-5">
+            <div className="col-5 d-md-none d-lg-block">
               <div className="input-group">
                 <Typeahead
                   id="pagination-example"
@@ -187,7 +188,7 @@ export const Header = () => {
                       aria-expanded="false"
                     >
                       <img src="/images/menu.svg" />
-                      <span className="d-inline-block mx-3">Action</span>
+                      <span className="d-inline-block mx-2">Action</span>
                     </button>
                     <ul className="dropdown-menu">
                       <li>

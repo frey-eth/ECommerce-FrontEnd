@@ -30,14 +30,14 @@ const Profile = () => {
   return (
     <>
       <BreadCrumb title="My Profile" />
-      <Container class1="cart-wrapper home-wrapper-2 py-5">
+      <Container class1="cart-wrapper home-wrapper-2 py-3">
         <div className="row">
           <div className="col-12">
-            <div className="d-flex">
-              <h3>Update Profile</h3>
+            <div className="row">
+              <h3 className="text-center text-uppercase">Update Profile</h3>
             </div>
           </div>
-          <div className="col-12">
+          <div className="col-12 px-5">
             <form onSubmit={formik.handleSubmit} className="">
               <div className="form-group p-2">
                 <label for="exampleInputEmail1">Email address</label>
@@ -90,9 +90,11 @@ const Profile = () => {
                 ) : null}
               </div>
 
-              <button type="submit" class="btn btn-primary m-2">
-                Save
-              </button>
+              <div className="d-flex flex-row justify-content-end">
+                <button type="submit" className="button m-2">
+                  Save
+                </button>
+              </div>
             </form>
           </div>
         </div>

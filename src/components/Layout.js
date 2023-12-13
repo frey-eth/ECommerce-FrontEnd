@@ -9,7 +9,9 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <Outlet />
+      <div className="overflow-hidden">
+        <Outlet />
+      </div>
       <Footer />
       <ToastContainer
         position="top-right"

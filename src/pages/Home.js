@@ -23,9 +23,12 @@ const Home = () => {
   return (
     <>
       <Container class1="home-wrapper-2 py-5">
-        <div className="row">
-          <div className="col-6">
-            <div className="main-banner position-relative p-3">
+        <div className="d-flex flex-wrap flex-row">
+          <div
+            className="d-flex align-content-start"
+            style={window.innerWidth >= 768 ? { maxWidth: "50%" } : {}}
+          >
+            <div className="main-banner position-relative">
               <img
                 src="/images/main-banner-1.jpg"
                 alt="main banner"
@@ -41,60 +44,61 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="col-6">
-            <div className="d-flex flex-wrap gap-10 justify-content-between align-items-center">
-              <Link className="small-banner position-relative" to="/product">
-                <img
-                  src="/images/catbanner-01.jpg"
-                  alt="main banner"
-                  className="img-fluid rounded-3"
-                />
-                <div className="small-banner-content position-absolute">
-                  <h4>Best Seller</h4>
-                  <h5 className="text-dark">Macbook</h5>
-                  <p> $999</p>
-                </div>
-              </Link>
+          <div
+            className="d-flex flex-wrap justify-content-between align-items-center"
+            style={window.innerWidth >= 768 ? { maxWidth: "50%" } : {}}
+          >
+            <Link className="small-banner position-relative mt-1" to="/product">
+              <img
+                src="/images/catbanner-01.jpg"
+                alt="main banner"
+                className="img-fluid rounded-3"
+              />
+              <div className="small-banner-content position-absolute d-flex flex-column justify-content-between">
+                <h4>Best Seller</h4>
+                <h5 className="text-dark">Macbook</h5>
+                <p> $999</p>
+              </div>
+            </Link>
 
-              <Link className="small-banner position-relative" to="/product">
-                <img
-                  src="/images/catbanner-02.jpg"
-                  alt="main banner"
-                  className="img-fluid rounded-3"
-                />
-                <div className="small-banner-content position-absolute">
-                  <h4>New Arrival</h4>
-                  <h5 className="text-dark">Apple Watch</h5>
-                  <p> $999</p>
-                </div>
-              </Link>
+            <Link className="small-banner position-relative mt-1" to="/product">
+              <img
+                src="/images/catbanner-02.jpg"
+                alt="main banner"
+                className="img-fluid rounded-3"
+              />
+              <div className="small-banner-content position-absolute">
+                <h4>New Arrival</h4>
+                <h5 className="text-dark">Apple Watch</h5>
+                <p> $999</p>
+              </div>
+            </Link>
 
-              <Link className="small-banner position-relative" to="/product">
-                <img
-                  src="/images/catbanner-03.jpg"
-                  alt="main banner"
-                  className="img-fluid rounded-3"
-                />
-                <div className="small-banner-content position-absolute">
-                  <h4>New Arrival</h4>
-                  <h5 className="text-dark">iPad</h5>
-                  <p> $999</p>
-                </div>
-              </Link>
+            <Link className="small-banner position-relative mt-1" to="/product">
+              <img
+                src="/images/catbanner-03.jpg"
+                alt="main banner"
+                className="img-fluid rounded-3"
+              />
+              <div className="small-banner-content position-absolute">
+                <h4>New Arrival</h4>
+                <h5 className="text-dark">iPad</h5>
+                <p> $999</p>
+              </div>
+            </Link>
 
-              <Link className="small-banner position-relative" to="/product">
-                <img
-                  src="/images/catbanner-04.jpg"
-                  alt="main banner"
-                  className="img-fluid rounded-3"
-                />
-                <div className="small-banner-content position-absolute">
-                  <h4>New Arrival</h4>
-                  <h5 className="text-dark">Headphone</h5>
-                  <p>$999</p>
-                </div>
-              </Link>
-            </div>
+            <Link className="small-banner position-relative mt-1" to="/product">
+              <img
+                src="/images/catbanner-04.jpg"
+                alt="main banner"
+                className="img-fluid rounded-3"
+              />
+              <div className="small-banner-content position-absolute">
+                <h4>New Arrival</h4>
+                <h5 className="text-dark">Headphone</h5>
+                <p>$999</p>
+              </div>
+            </Link>
           </div>
         </div>
       </Container>
