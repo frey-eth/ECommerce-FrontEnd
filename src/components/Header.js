@@ -51,7 +51,7 @@ export const Header = () => {
             <div className="col-6">
               <p className="text-end text-white mb-0">
                 Hotline:
-                <a className="text-white" href="tel:0352498496">
+                <a className="text-white mx-2" href="tel:0352498496">
                   0352498496
                 </a>
               </p>
