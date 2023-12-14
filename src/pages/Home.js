@@ -10,8 +10,20 @@ import { services } from "../utils/Data";
 import { getAllProducts } from "../features/products/productSlice";
 import { getAllBlog } from "../features/blog/blogSlice";
 import PopularCard from "../components/PopularCard";
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 const Home = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 300,
+    slidesToShow: window.innerWidth >= 768 ? 4 : 2,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllProducts());
@@ -26,7 +38,7 @@ const Home = () => {
         <div className="d-flex flex-wrap flex-row">
           <div
             className="d-flex align-content-start"
-            style={window.innerWidth >= 768 ? { maxWidth: "50%" } : {}}
+            style={window.innerWidth >= 764 ? { maxWidth: "50%" } : {}}
           >
             <div className="main-banner position-relative">
               <img
@@ -46,7 +58,7 @@ const Home = () => {
           </div>
           <div
             className="d-flex flex-wrap justify-content-between align-items-center"
-            style={window.innerWidth >= 768 ? { maxWidth: "50%" } : {}}
+            style={window.innerWidth >= 764 ? { maxWidth: "50%" } : {}}
           >
             <Link className="small-banner position-relative mt-1" to="/product">
               <img
@@ -102,21 +114,26 @@ const Home = () => {
           </div>
         </div>
       </Container>
-      <Container class1="home-wrapper-1 py-5">
+      <Container class1="home-wrapper-1 py-2">
         <div className="row">
           <div className="col-12">
             <div className="services d-flex align-items-center justify-content-between">
-              {services?.map((item, index) => {
-                return (
-                  <div key={index} className="d-flex align-items-center gap-15">
-                    <img src={item.image} alt="services" />
-                    <div>
-                      <h6>{item.title}</h6>
-                      <p className="mb-0">{item.tagline}</p>
+              <Marquee>
+                {services?.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="d-flex align-items-center mx-5 gap-10"
+                    >
+                      <img src={item.image} alt="services" />
+                      <div>
+                        <h6>{item.title}</h6>
+                        <p className="mb-0">{item.tagline}</p>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </Marquee>
             </div>
           </div>
         </div>
@@ -124,38 +141,46 @@ const Home = () => {
       <Container class1="home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
-            <div className="categories d-flex justify-content-between flex-wrap justify-content-around">
-              <div className="category d-flex gap-30 align-items-center">
+            <div className="categories d-flex flex-row flex-wrap justify-content-around justify-content-center">
+              <div className="category d-flex align-items-center">
                 <div>
                   <h6>Camera</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="/images/camera.jpg" alt="camera" />
+                <img
+                  src="/images/camera.jpg"
+                  className="img-fluid"
+                  alt="camera"
+                />
               </div>
-              <div className="category d-flex gap-30 align-items-center">
+              <div className="category d-flex align-items-center">
                 <div>
                   <h6>SmartTV</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="/images/tv.jpg" alt="tv" />
+                <img src="/images/tv.jpg" className="img-fluid" alt="tv" />
               </div>
-              <div className="category d-flex gap-30 align-items-center">
+              <div className="category d-flex align-items-center">
                 <div>
                   <h6>Smart Watch</h6>
                   <p>10 Items</p>
                 </div>
                 <img
-                  src="/images/watch.jpg"
+                  src="/images/watch2.png"
                   alt="watch"
                   className="img-fluid"
                 />
               </div>
-              <div className="category d-flex gap-30 align-items-center">
+              <div className="category d-flex align-items-center">
                 <div>
                   <h6>Head Phone</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="/images/headphone.jpg" alt="headphone" />
+                <img
+                  src="/images/headphone.jpg"
+                  alt="headphone"
+                  className="img-fluid"
+                />
               </div>
             </div>
           </div>
@@ -166,13 +191,13 @@ const Home = () => {
           <div className="col-12">
             <h3 className="section-heading">Feature Collections</h3>
           </div>
-          <div className="d-flex flex-wrap">
+          <Slider {...settings}>
             {productState &&
               productState?.map((item, index) => {
                 if (item.tag === "featured")
                   return <ProductCard key={index} data={item} />;
               })}
-          </div>
+          </Slider>
         </div>
       </Container>
       <Container class1="special-wrapper py-5 home-wrapper-2">

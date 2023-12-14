@@ -16,6 +16,7 @@ const OurStore = () => {
   }, []);
   const productState = useSelector((state) => state.product.products);
   const categoryState = useSelector((state) => state.category.categories);
+  const filterProducts = useState(productState);
   const [grid, setGrid] = useState(4);
   return (
     <>
@@ -27,7 +28,15 @@ const OurStore = () => {
               <h3 className="filter-title">Shop by Categories</h3>
               <ul className="ps-0">
                 {categoryState.map((category) => (
-                  <li className="text-uppercase" key={category._id}>
+                  <li
+                    className="text-uppercase"
+                    onClick={() => {
+                      filterProducts.filter(
+                        (product) => product.category !== category
+                      );
+                    }}
+                    key={category._id}
+                  >
                     {category?.title}
                   </li>
                 ))}

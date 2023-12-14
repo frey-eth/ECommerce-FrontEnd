@@ -70,7 +70,7 @@ export const Header = () => {
                 </Link>
               </h2>
             </div>
-            <div className="col-5 d-md-none d-lg-block">
+            <div className="col-5">
               <div className="input-group">
                 <Typeahead
                   id="pagination-example"
@@ -201,7 +201,7 @@ export const Header = () => {
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="/cart">
-                          Card
+                          Cart
                         </Link>
                       </li>
                     </ul>

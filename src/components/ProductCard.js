@@ -11,10 +11,7 @@ const ProductCard = (props) => {
 
   return (
     <div
-      className={`${
-        location.pathname === "/product" ? `gr-${grid}` : "col-3"
-      } p-2`}
-      style={{ maxWidth: "32%" }}
+      className={`${location.pathname === "/product" && `gr-${grid}`} p-2`}
     >
       <div className="product-card position-relative h-100">
         <div className="wishlist-icon position-absolute">

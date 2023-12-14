@@ -226,7 +226,7 @@ h1 {
 
 /* Categories section */
 .categories {
-  padding: 15px;
+  padding: 20px;
   background-color: white;
   box-shadow: 0 0 10px #0000001a;
 }
@@ -234,12 +234,14 @@ h1 {
   box-shadow: 0 0 10px #0000001a;
 }
 
-.categories > div {
-  width: 24%;
+.category {
+  flex-grow: 1;
+  align-items: center;
 }
 
-.categories > div > div {
-  width: 60%;
+.categories img {
+  height: 70px;
+  width: 70x;
 }
 
 /* Categories section */
@@ -308,6 +310,13 @@ h1 {
   overflow: hidden;
   width: 100%;
 }
+
+.product-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .product-card:hover .action-bar {
   right: 10px;
 }
