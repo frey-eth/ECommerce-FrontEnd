@@ -365,9 +365,11 @@ const SingleProduct = () => {
               <div className="col-12">
                 <h3 className="section-heading">Our Popular Products</h3>
               </div>
-              <div className="row">
+              <div className="d-flex flex-row flex-wrap">
                 {popularProducts.slice(0, 4).map((product) => (
-                  <ProductCard key={product._id} data={product} />
+                  <div className="d-flex w-25">
+                    <ProductCard key={product._id} data={product} />
+                  </div>
                 ))}
               </div>
             </div>

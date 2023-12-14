@@ -19,7 +19,9 @@ const PopularCard = (props) => {
         <Link className="p-btn outline m-2" to={`/product/${data?._id}`}>
           DETAILS
         </Link>
-        <button className="p-btn fill">BUY NOW</button>
+        <Link className="p-btn fill" to={`/product/${data?._id}`}>
+          BUY NOW
+        </Link>
       </div>
     </div>
   );
