@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BreadCrumb } from "../components/BreadCrumb";
-import ReactStars from "react-rating-stars-component";
 import ProductCard from "../components/ProductCard";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,10 +13,70 @@ const OurStore = () => {
     dispatch(getAllProducts());
     dispatch(getCategories());
   }, []);
+
   const productState = useSelector((state) => state.product.products);
   const categoryState = useSelector((state) => state.category.categories);
-  const filterProducts = useState(productState);
+
+  const [filteredProducts, setFilteredProducts] = useState(productState);
   const [grid, setGrid] = useState(4);
+  const [availabilityFilter, setAvailabilityFilter] = useState({
+    inStock: false,
+    outOfStock: false,
+  });
+  const [priceFilter, setPriceFilter] = useState({
+    from: "",
+    to: "",
+  });
+  const [tagFilters, setTagFilters] = useState([]);
+
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const filterCategories = (category) => {
+    let filteredList = productState;
+
+    if (category !== selectedCategory) {
+      if (category === "All") {
+        setFilteredProducts(productState);
+      } else {
+        filteredList = filteredList.filter(
+          (product) => product.category === category
+        );
+        setFilteredProducts(filteredList);
+      }
+      setSelectedCategory(category);
+    } else {
+      setFilteredProducts(productState);
+      setSelectedCategory("All");
+    }
+  };
+
+  useEffect(() => {
+    filterProducts();
+  }, [availabilityFilter, priceFilter, tagFilters]);
+
+  const filterProducts = () => {
+    let filteredList = productState;
+    if (availabilityFilter.inStock) {
+      filteredList = filteredList?.filter((product) => product.quantity > 0);
+    }
+    if (availabilityFilter.outOfStock) {
+      filteredList = filteredList?.filter((product) => product.quantity === 0);
+    }
+
+    if (priceFilter.from !== "" && priceFilter.to !== "") {
+      filteredList = filteredList?.filter(
+        (product) =>
+          product.price >= parseInt(priceFilter.from) &&
+          product.price <= parseInt(priceFilter.to)
+      );
+    }
+
+    if (tagFilters.length > 0) {
+      filteredList = filteredList.filter((product) =>
+        tagFilters.every((tag) => product?.tag?.includes(tag))
+      );
+    }
+    setFilteredProducts(filteredList);
+  };
   return (
     <>
       <BreadCrumb title="Store" />
@@ -27,15 +86,21 @@ const OurStore = () => {
             <div className="filter-card mb-3">
               <h3 className="filter-title">Shop by Categories</h3>
               <ul className="ps-0">
+                <li
+                  value="All"
+                  onClick={() => {
+                    filterCategories("All");
+                  }}
+                >
+                  All
+                </li>
                 {categoryState.map((category) => (
                   <li
+                    key={category._id}
                     className="text-uppercase"
                     onClick={() => {
-                      filterProducts.filter(
-                        (product) => product.category !== category
-                      );
+                      filterCategories(category.title);
                     }}
-                    key={category._id}
                   >
                     {category?.title}
                   </li>
@@ -45,14 +110,19 @@ const OurStore = () => {
             <div className="filter-card mb-3">
               <h3 className="filter-title">Filter By</h3>
               <div>
-                <h5 className="sub-title">Availablity</h5>
+                <h5 className="sub-title">Availability</h5>
                 <div>
                   <div className="form-check">
                     <input
                       type="checkbox"
                       className="form-check-input"
-                      value=""
-                      id=""
+                      checked={availabilityFilter.inStock}
+                      onChange={() =>
+                        setAvailabilityFilter({
+                          ...availabilityFilter,
+                          inStock: !availabilityFilter.inStock,
+                        })
+                      }
                     />
                     <label className="form-check-label" htmlFor="">
                       In stock(1)
@@ -62,8 +132,13 @@ const OurStore = () => {
                     <input
                       type="checkbox"
                       className="form-check-input"
-                      value=""
-                      id=""
+                      checked={availabilityFilter.outOfStock}
+                      onChange={() =>
+                        setAvailabilityFilter({
+                          ...availabilityFilter,
+                          outOfStock: !availabilityFilter.outOfStock,
+                        })
+                      }
                     />
                     <label className="form-check-label" htmlFor="">
                       Out of stock(0)
@@ -74,19 +149,27 @@ const OurStore = () => {
                 <div className="d-flex align-items-center gap-10">
                   <div className="form-floating mb-3">
                     <input
-                      type="email"
+                      type="number"
                       className="form-control"
                       id="priceInput"
                       placeholder="From"
+                      value={priceFilter.from}
+                      onChange={(e) =>
+                        setPriceFilter({ ...priceFilter, from: e.target.value })
+                      }
                     />
                     <label htmlFor="floatingInput">From</label>
                   </div>
                   <div className="form-floating mb-3">
                     <input
-                      type="email"
+                      type="number"
                       className="form-control"
                       id="priceInput1"
                       placeholder="To"
+                      value={priceFilter.to}
+                      onChange={(e) =>
+                        setPriceFilter({ ...priceFilter, to: e.target.value })
+                      }
                     />
                     <label htmlFor="floatingInput">To</label>
                   </div>
@@ -97,52 +180,27 @@ const OurStore = () => {
               <h3 className="filter-title">Product Tags</h3>
               <div>
                 <div className="product-tags d-flex flex-wrap align-items-center gap-10">
-                  <span className="badge bg-light text-secondary rounded-3 py-2 px-3">
-                    iPhone
-                  </span>
-                  <span className="badge bg-light text-secondary rounded-3 py-2 px-3">
-                    iPad
-                  </span>
-                  <span className="badge bg-light text-secondary rounded-3 py-2 px-3">
-                    Macbook
-                  </span>
-                  <span className="badge bg-light text-secondary rounded-3 py-2 px-3">
-                    AirPod
-                  </span>
+                  {categoryState.map((category) => (
+                    <span
+                      key={category._id}
+                      className={`badge bg-light text-secondary rounded-3 py-2 px-3 ${
+                        tagFilters.includes(category.title) ? "active" : ""
+                      }`}
+                      onClick={() => {
+                        if (tagFilters.includes(category.title)) {
+                          setTagFilters(
+                            tagFilters.filter((tag) => tag !== category.title)
+                          );
+                        } else {
+                          setTagFilters([...tagFilters, category.title]);
+                        }
+                      }}
+                    >
+                      {category.title}
+                    </span>
+                  ))}
                 </div>
               </div>
-            </div>
-            <div className="filter-card mb-3">
-              <h3 className="filter-title">Random Product</h3>
-              {productState?.slice(0, 3).map((item, index) => (
-                <div key={index}>
-                  <div className="random-products d-flex my-2">
-                    <div className="w-50">
-                      <img
-                        src={item?.images[0].url}
-                        alt="watch"
-                        className="img-fluid"
-                      />
-                    </div>
-                    <div className="w-50">
-                      <Link
-                        to={`/product/${item?._id}`}
-                        className="text-uppercase fs-6 text-dark"
-                      >
-                        {item?.title}
-                      </Link>
-                      <ReactStars
-                        count={5}
-                        size={15}
-                        value={item?.totalRating}
-                        edit={false}
-                        activeColor="#ffd700"
-                      />
-                      <b>${item?.price}</b>
-                    </div>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
           <div className="col-9">
@@ -166,12 +224,16 @@ const OurStore = () => {
                   </select>
                 </div>
                 <div className="d-flex align-items-center gap-10">
-                  <p className="totalproducts mb-0">21 Products</p>
+                  <p className="totalproducts mb-0">
+                    {filteredProducts.length} Products
+                  </p>
                   <div className="grid d-flex gap-10 align-items-center">
                     <img
                       src="/images/gr4.svg"
                       alt="grid"
-                      className="img-fluid d-block"
+                      className={`img-fluid d-block ${
+                        grid === 3 ? "active" : ""
+                      }`}
                       onClick={() => {
                         setGrid(3);
                       }}
@@ -179,7 +241,9 @@ const OurStore = () => {
                     <img
                       src="/images/gr3.svg"
                       alt="grid"
-                      className="img-fluid d-block"
+                      className={`img-fluid d-block ${
+                        grid === 4 ? "active" : ""
+                      }`}
                       onClick={() => {
                         setGrid(4);
                       }}
@@ -190,9 +254,9 @@ const OurStore = () => {
             </div>
             <div className="products-list">
               <div className="d-flex flex-wrap justify-content-between">
-                {productState.map((data, index) => {
-                  return <ProductCard key={index} grid={grid} data={data} />;
-                })}
+                {filteredProducts?.map((data, index) => (
+                  <ProductCard key={index} grid={grid} data={data} />
+                ))}
               </div>
             </div>
           </div>

@@ -17,7 +17,6 @@ export const Header = () => {
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    dispatch(getUserCart());
     if (cartState && cartState.length > 0) {
       const total = cartState.reduce((accumulator, item) => {
         return accumulator + item.price * item.quantity;
