@@ -32,7 +32,7 @@ const Signup = () => {
   });
   useEffect(() => {
     if (isSuccess && createdUser) {
-      navigate("/");
+      navigate("/login");
       formik.resetForm();
     }
   }, [isSuccess, isLoading, isError, createdUser]);
