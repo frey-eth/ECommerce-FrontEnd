@@ -13,6 +13,8 @@ import PopularCard from "../components/PopularCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Loading from "../components/Loading";
+
 const Home = () => {
   const settings = {
     dots: true,
@@ -30,6 +32,9 @@ const Home = () => {
     dispatch(getAllBlog());
   }, []);
   const blogState = useSelector((state) => state.blog.blogs);
+  const { isLoading, isSuccess, isError } = useSelector(
+    (state) => state.product
+  );
   const productState = useSelector((state) => state.product.products);
 
   return (
@@ -191,13 +196,17 @@ const Home = () => {
           <div className="col-12">
             <h3 className="section-heading">Feature Collections</h3>
           </div>
-          <Slider {...settings}>
-            {productState &&
-              productState?.map((item, index) => {
-                if (item.tag === "featured")
-                  return <ProductCard key={index} data={item} />;
-              })}
-          </Slider>
+          {isLoading ? (
+            Loading()
+          ) : (
+            <Slider {...settings}>
+              {productState &&
+                productState?.map((item, index) => {
+                  if (item.tag === "featured")
+                    return <ProductCard key={index} data={item} />;
+                })}
+            </Slider>
+          )}
         </div>
       </Container>
       <Container class1="special-wrapper py-5 home-wrapper-2">
@@ -207,23 +216,25 @@ const Home = () => {
           </div>
         </div>
         <div className="d-flex flex-wrap">
-          {productState &&
-            productState?.map((item) => {
-              if (item.tag === "special")
-                return (
-                  <SpecialProduct
-                    key={item?._id}
-                    title={item.title}
-                    brand={item.brand}
-                    images={item.images}
-                    totalRatings={item.totalRatings}
-                    sold={item?.sold}
-                    price={item.price}
-                    quantity={item.quantity}
-                    _id={item._id}
-                  />
-                );
-            })}
+          {isLoading
+            ? Loading()
+            : productState &&
+              productState?.map((item) => {
+                if (item.tag === "special")
+                  return (
+                    <SpecialProduct
+                      key={item?._id}
+                      title={item.title}
+                      brand={item.brand}
+                      images={item.images}
+                      totalRatings={item.totalRatings}
+                      sold={item?.sold}
+                      price={item.price}
+                      quantity={item.quantity}
+                      _id={item._id}
+                    />
+                  );
+              })}
         </div>
       </Container>
       <Container class1="featured-wrapper py-5 home-wrapper-2">
@@ -232,11 +243,13 @@ const Home = () => {
             <h3 className="section-heading">Our Popular Products</h3>
           </div>
           <div className="d-flex flex-wrap">
-            {productState &&
-              productState?.map((item, index) => {
-                if (item.tag === "popular")
-                  return <PopularCard key={index} data={item} />;
-              })}
+            {isLoading
+              ? Loading()
+              : productState &&
+                productState?.map((item, index) => {
+                  if (item.tag === "popular")
+                    return <PopularCard key={index} data={item} />;
+                })}
           </div>
         </div>
       </Container>
@@ -280,14 +293,16 @@ const Home = () => {
             <h3 className="section-heading">Our Latest Blogs</h3>
           </div>
           <div className="d-flex flex-wrap">
-            {blogState &&
-              blogState?.slice(0, 3).map((item, index) => {
-                return (
-                  <div className="col-3">
-                    <BlogCard key={index} data={item} style={{ flex: "1" }} />
-                  </div>
-                );
-              })}
+            {isLoading
+              ? Loading()
+              : blogState &&
+                blogState?.slice(0, 3).map((item, index) => {
+                  return (
+                    <div className="col-3">
+                      <BlogCard key={index} data={item} style={{ flex: "1" }} />
+                    </div>
+                  );
+                })}
           </div>
         </div>
       </Container>

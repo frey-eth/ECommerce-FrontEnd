@@ -4,7 +4,6 @@ const Loading = () => {
   return (
     <>
       <div className="card" aria-hidden="true">
-        <img src="..." className="card-img-top" alt="..." />
         <div className="card-body">
           <h5 className="card-title placeholder-glow">
             <span className="placeholder col-6"></span>

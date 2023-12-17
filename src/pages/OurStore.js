@@ -5,7 +5,6 @@ import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../features/products/productSlice";
 import { getCategories } from "../features/productCategory/categorySlice";
-import { Link } from "react-router-dom";
 
 const OurStore = () => {
   const dispatch = useDispatch();
