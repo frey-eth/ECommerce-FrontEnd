@@ -243,13 +243,17 @@ const Home = () => {
             <h3 className="section-heading">Our Popular Products</h3>
           </div>
           <div className="d-flex flex-wrap">
-            {isLoading
-              ? Loading()
-              : productState &&
-                productState?.map((item, index) => {
-                  if (item.tag === "popular")
-                    return <PopularCard key={index} data={item} />;
-                })}
+            {isLoading ? (
+              <div className="flex-row">
+                <Loading />
+              </div>
+            ) : (
+              productState &&
+              productState?.map((item, index) => {
+                if (item.tag === "popular")
+                  return <PopularCard key={index} data={item} />;
+              })
+            )}
           </div>
         </div>
       </Container>
@@ -293,16 +297,20 @@ const Home = () => {
             <h3 className="section-heading">Our Latest Blogs</h3>
           </div>
           <div className="d-flex flex-wrap">
-            {isLoading
-              ? Loading()
-              : blogState &&
-                blogState?.slice(0, 3).map((item, index) => {
-                  return (
-                    <div className="col-3">
-                      <BlogCard key={index} data={item} style={{ flex: "1" }} />
-                    </div>
-                  );
-                })}
+            {isLoading ? (
+              <div className="flex-row">
+                <Loading />
+              </div>
+            ) : (
+              blogState &&
+              blogState?.slice(0, 3).map((item, index) => {
+                return (
+                  <div className="col-3">
+                    <BlogCard key={index} data={item} style={{ flex: "1" }} />
+                  </div>
+                );
+              })
+            )}
           </div>
         </div>
       </Container>
