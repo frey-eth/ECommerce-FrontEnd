@@ -2,7 +2,7 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <>
+    <div className="w-100">
       <div className="card" aria-hidden="true">
         <div className="card-body">
           <h5 className="card-title placeholder-glow">
@@ -21,7 +21,7 @@ const Loading = () => {
           ></a>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

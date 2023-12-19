@@ -14,8 +14,11 @@ const OurStore = () => {
   }, []);
 
   const productState = useSelector((state) => state.product.products);
+  const { isSuccess } = useSelector((state) => state.product);
+  useEffect(() => {
+    setFilteredProducts(productState);
+  }, [isSuccess]);
   const categoryState = useSelector((state) => state.category.categories);
-
   const [filteredProducts, setFilteredProducts] = useState(productState);
   const [grid, setGrid] = useState(4);
   const [availabilityFilter, setAvailabilityFilter] = useState({
@@ -27,7 +30,7 @@ const OurStore = () => {
     to: "",
   });
   const [tagFilters, setTagFilters] = useState([]);
-
+  const [sortOption, setSortOption] = useState("title-ascending");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const filterCategories = (category) => {
     let filteredList = productState;
@@ -53,7 +56,7 @@ const OurStore = () => {
   }, [availabilityFilter, priceFilter, tagFilters]);
 
   const filterProducts = () => {
-    let filteredList = productState;
+    let filteredList = [...productState];
     if (availabilityFilter.inStock) {
       filteredList = filteredList?.filter((product) => product.quantity > 0);
     }
@@ -73,6 +76,33 @@ const OurStore = () => {
       filteredList = filteredList.filter((product) =>
         tagFilters.every((tag) => product?.tag?.includes(tag))
       );
+    }
+    switch (sortOption) {
+      case "title-ascending":
+        filteredList.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case "title-descending":
+        filteredList.sort((a, b) => b.title.localeCompare(a.title));
+        break;
+      case "price-ascending":
+        filteredList.sort((a, b) => parseInt(b.price) - parseInt(a.price));
+        break;
+      case "price-descending":
+        filteredList.sort((a, b) => parseInt(a.price) - parseInt(b.price));
+        break;
+      case "created-ascending":
+        filteredList.sort(
+          (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+        );
+        break;
+      case "created-descending":
+        filteredList.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        break;
+      default:
+        // No sorting
+        break;
     }
     setFilteredProducts(filteredList);
   };
@@ -124,7 +154,7 @@ const OurStore = () => {
                       }
                     />
                     <label className="form-check-label" htmlFor="">
-                      In stock(1)
+                      In stock ({productState?.length})
                     </label>
                   </div>
                   <div className="form-check">
@@ -140,7 +170,7 @@ const OurStore = () => {
                       }
                     />
                     <label className="form-check-label" htmlFor="">
-                      Out of stock(0)
+                      Out of stock (0)
                     </label>
                   </div>
                 </div>
@@ -175,7 +205,7 @@ const OurStore = () => {
                 </div>
               </div>
             </div>
-            <div className="filter-card mb-3">
+            {/* <div className="filter-card mb-3">
               <h3 className="filter-title">Product Tags</h3>
               <div>
                 <div className="product-tags d-flex flex-wrap align-items-center gap-10">
@@ -200,7 +230,7 @@ const OurStore = () => {
                   ))}
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="col-9">
             <div className="filter-sort-grid mb-4">
@@ -209,14 +239,19 @@ const OurStore = () => {
                   <p className="mb-0 d-block" style={{ width: "100px" }}>
                     Sort By:
                   </p>
-                  <select name="" className="form-control form-select" id="">
-                    <option value="manual">Feature</option>
-                    <option value="best-selling" selected="selected">
-                      Best selling
-                    </option>
+                  <select
+                    name=""
+                    className="form-control form-select"
+                    id=""
+                    value={sortOption}
+                    onChange={(e) => {
+                      setSortOption(e.target.value);
+                      filterProducts();
+                    }}
+                  >
                     <option value="title-ascending">A-Z</option>
                     <option value="title-descending">Z-A</option>
-                    <option value="price-ascending">Price, low to high</option>
+                    <option value="price-ascending">Price, low to high </option>
                     <option value="price-descending">Price, high to low</option>
                     <option value="created-ascending">Date, old to new</option>
                     <option value="created-descending">Date, new to old</option>
@@ -252,7 +287,7 @@ const OurStore = () => {
               </div>
             </div>
             <div className="products-list">
-              <div className="d-flex flex-wrap justify-content-between">
+              <div className="d-flex flex-wrap">
                 {filteredProducts?.map((data, index) => (
                   <ProductCard key={index} grid={grid} data={data} />
                 ))}

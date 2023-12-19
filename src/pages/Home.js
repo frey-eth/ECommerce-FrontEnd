@@ -216,25 +216,29 @@ const Home = () => {
           </div>
         </div>
         <div className="d-flex flex-wrap">
-          {isLoading
-            ? Loading()
-            : productState &&
-              productState?.map((item) => {
-                if (item.tag === "special")
-                  return (
-                    <SpecialProduct
-                      key={item?._id}
-                      title={item.title}
-                      brand={item.brand}
-                      images={item.images}
-                      totalRatings={item.totalRatings}
-                      sold={item?.sold}
-                      price={item.price}
-                      quantity={item.quantity}
-                      _id={item._id}
-                    />
-                  );
-              })}
+          {isLoading ? (
+            <div className="row">
+              <Loading />
+            </div>
+          ) : (
+            productState &&
+            productState?.map((item) => {
+              if (item.tag === "special")
+                return (
+                  <SpecialProduct
+                    key={item?._id}
+                    title={item.title}
+                    brand={item.brand}
+                    images={item.images}
+                    totalRatings={item.totalRatings}
+                    sold={item?.sold}
+                    price={item.price}
+                    quantity={item.quantity}
+                    _id={item._id}
+                  />
+                );
+            })
+          )}
         </div>
       </Container>
       <Container class1="featured-wrapper py-5 home-wrapper-2">
@@ -244,7 +248,7 @@ const Home = () => {
           </div>
           <div className="d-flex flex-wrap">
             {isLoading ? (
-              <div className="flex-row">
+              <div className="row">
                 <Loading />
               </div>
             ) : (
