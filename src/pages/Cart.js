@@ -11,6 +11,7 @@ import { MdOutlineDoneOutline } from "react-icons/md";
 import {
   deleteUserCart,
   deleteUserOrder,
+  getUserCart,
   getUserOrder,
   updateProductQuantityFromCart,
 } from "../features/user/userSlice";
@@ -21,6 +22,7 @@ const { confirm } = Modal;
 const Cart = () => {
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(getUserCart());
     dispatch(getUserOrder());
   }, []);
   const cartState = useSelector((state) => state.auth.cartProducts);
