@@ -1,41 +1,40 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import contactService from "./contactService";
 import { toast } from "react-toastify";
+import blogcategoryService from "./blogCategoryService";
 
-export const createEnquiry = createAsyncThunk(
-  "Enquiry/Create",
-  async (value,thunkAPi) => {
+export const getBlogCategory = createAsyncThunk(
+  "Blog/category",
+  async (thunkAPi) => {
     try {
-      return await contactService.createEnquiry(value);
+      return await blogcategoryService.getBlogCategory();
     } catch (error) {
       return thunkAPi.rejectWithValue(error);
     }
   }
 );
 const initialState = {
-  Enquiry: [],
+  blogCategories: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
   message: "",
 };
-export const contactSlice = createSlice({
-  name: "enquiry",
+export const blogcategorySlice = createSlice({
+  name: "blogCategory",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(createEnquiry.pending, (state) => {
+      .addCase(getBlogCategory.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createEnquiry.fulfilled, (state, action) => {
+      .addCase(getBlogCategory.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.Enquiry = action.payload;
-        toast.success("You have send enquiry!");
+        state.blogCategories = action.payload;
       })
-      .addCase(createEnquiry.rejected, (state, action) => {
+      .addCase(getBlogCategory.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
@@ -44,5 +43,4 @@ export const contactSlice = createSlice({
   },
 });
 
-export default contactSlice.reducer;
-  
+export default blogcategorySlice.reducer;

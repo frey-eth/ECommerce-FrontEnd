@@ -11,7 +11,6 @@ import { MdOutlineDoneOutline } from "react-icons/md";
 import {
   deleteUserCart,
   deleteUserOrder,
-  getUserCart,
   getUserOrder,
   updateProductQuantityFromCart,
 } from "../features/user/userSlice";
@@ -21,13 +20,9 @@ const { confirm } = Modal;
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const [trigger, setTrigger] = useState(false);
   useEffect(() => {
     dispatch(getUserOrder());
   }, []);
-  useEffect(() => {
-    dispatch(getUserCart());
-  }, [ ]);
   const cartState = useSelector((state) => state.auth.cartProducts);
   const orderState = useSelector((state) => state.auth.orderedData);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -83,7 +78,7 @@ const Cart = () => {
                       <div className="cart-col-1 gap-15 align-items-center d-flex p-2">
                         <div className="w-25">
                           <img
-                            src={item?.productId?.images[0].url}
+                            src={item?.productId?.images[0]?.url}
                             alt="Product image"
                             className="img-fluid"
                           />
@@ -112,11 +107,7 @@ const Cart = () => {
                               };
                               dispatch(
                                 updateProductQuantityFromCart(cartDetail)
-                              )
-                                .unwrap()
-                                .then(() => {
-                                  setTrigger(!trigger);
-                                });
+                              );
                             }}
                             className="form-control"
                             style={{ width: "70px" }}

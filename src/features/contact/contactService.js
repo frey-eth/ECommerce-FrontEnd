@@ -1,12 +1,12 @@
 import axios from "axios";
 import { baseUrl } from "../../utils/axiosConfig";
 
-const getCoupon = async () => {
-  const response = await axios.get(`${baseUrl}coupon/`);
+const createEnquiry = async (value) => {
+  const response = await axios.post(`${baseUrl}enquiry/`, value);
   return response.data;
 };
-const couponService = {
-  getCoupon,
+const contactService = {
+  createEnquiry,
 };
 
-export default couponService;
+export default contactService;

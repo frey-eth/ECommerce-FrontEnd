@@ -292,9 +292,13 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.cartProducts = state.cartProducts.filter((cart) =>
-          cart._id === action.payload._id ? (cart = action.payload) : cart
-        );
+        state.cartProducts = state.cartProducts?.map((product) => {
+          if (product._id === action.payload._id) {
+            return action.payload;
+          } else {
+            return product;
+          }
+        });
       })
       .addCase(updateProductQuantityFromCart.rejected, (state, action) => {
         state.isLoading = false;

@@ -5,7 +5,7 @@ import categoryReducer from "../features/productCategory/categorySlice";
 import blogReducer from "../features/blog/blogSlice";
 import contactReducer from "../features/contact/contactSlice";
 import couponReducer from "../features/coupon/couponSlice";
-
+import blogCategoryReducer from "../features/blogCategory/blogCategorySlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -14,5 +14,6 @@ export const store = configureStore({
     blog: blogReducer,
     enquiry: contactReducer,
     coupon: couponReducer,
+    blogCategory: blogCategoryReducer,
   },
 });

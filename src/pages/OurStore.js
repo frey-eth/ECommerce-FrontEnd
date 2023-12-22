@@ -79,10 +79,10 @@ const OurStore = () => {
     }
     switch (sortOption) {
       case "title-ascending":
-        filteredList.sort((a, b) => a.title.localeCompare(b.title));
+        filteredList.sort((a, b) => b.title.localeCompare(b.title));
         break;
       case "title-descending":
-        filteredList.sort((a, b) => b.title.localeCompare(a.title));
+        filteredList.sort((a, b) => a.title.localeCompare(a.title));
         break;
       case "price-ascending":
         filteredList.sort((a, b) => parseInt(b.price) - parseInt(a.price));

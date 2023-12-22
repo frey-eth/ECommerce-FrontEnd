@@ -32,9 +32,7 @@ const Home = () => {
     dispatch(getAllBlog());
   }, []);
   const blogState = useSelector((state) => state.blog.blogs);
-  const { isLoading, isSuccess, isError } = useSelector(
-    (state) => state.product
-  );
+  const { isLoading } = useSelector((state) => state.product);
   const productState = useSelector((state) => state.product.products);
 
   return (
@@ -147,25 +145,38 @@ const Home = () => {
         <div className="row">
           <div className="col-12">
             <div className="categories d-flex flex-row flex-wrap justify-content-around justify-content-center">
-              <div className="category d-flex align-items-center">
+              <Link
+                className="category text-dark d-flex align-items-center"
+                to="/product"
+              >
                 <div>
-                  <h6>Camera</h6>
+                  <h6>Smart Phone</h6>
                   <p>10 Items</p>
                 </div>
                 <img
-                  src="/images/camera.jpg"
+                  src="/images/phone.jpg"
                   className="img-fluid"
-                  alt="camera"
+                  alt="phone"
                 />
-              </div>
-              <div className="category d-flex align-items-center">
+              </Link>
+              <Link
+                to="/product"
+                className="category text-dark d-flex align-items-center"
+              >
                 <div>
-                  <h6>SmartTV</h6>
+                  <h6>Laptop</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="/images/tv.jpg" className="img-fluid" alt="tv" />
-              </div>
-              <div className="category d-flex align-items-center">
+                <img
+                  src="/images/laptop.jpg"
+                  className="img-fluid"
+                  alt="laptop"
+                />
+              </Link>
+              <Link
+                to="/product"
+                className="category text-dark d-flex align-items-center"
+              >
                 <div>
                   <h6>Smart Watch</h6>
                   <p>10 Items</p>
@@ -175,8 +186,11 @@ const Home = () => {
                   alt="watch"
                   className="img-fluid"
                 />
-              </div>
-              <div className="category d-flex align-items-center">
+              </Link>
+              <Link
+                to="/product"
+                className="category text-dark d-flex align-items-center"
+              >
                 <div>
                   <h6>Head Phone</h6>
                   <p>10 Items</p>
@@ -186,7 +200,7 @@ const Home = () => {
                   alt="headphone"
                   className="img-fluid"
                 />
-              </div>
+              </Link>
             </div>
           </div>
         </div>
