@@ -4,14 +4,15 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUserCart } from "../features/user/userSlice";
 
 const Layout = () => {
   const dispatch = useDispatch();
+  const cartState = useSelector((state) => state.auth.cartProducts);
   useEffect(() => {
     dispatch(getUserCart());
-  }, []);
+  }, [cartState]);
 
   return (
     <>

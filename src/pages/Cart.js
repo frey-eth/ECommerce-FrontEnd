@@ -22,7 +22,6 @@ const { confirm } = Modal;
 const Cart = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUserCart());
     dispatch(getUserOrder());
   }, []);
   const cartState = useSelector((state) => state.auth.cartProducts);

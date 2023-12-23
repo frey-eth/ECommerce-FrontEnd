@@ -203,8 +203,9 @@ const SingleProduct = () => {
                                 color: color,
                                 price: productData?.price,
                               };
-                              dispatch(addProductToCart(values));
-                              navigate("/cart");
+                              dispatch(addProductToCart(values))
+                                .unwrap()
+                                .then(() => navigate("/cart"));
                             }
                           }
                         }}

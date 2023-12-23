@@ -241,7 +241,6 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.cardProduct = action.payload;
         toast.success("Product is added to cart!");
       })
       .addCase(addProductToCart.rejected, (state, action) => {
@@ -366,6 +365,7 @@ export const authSlice = createSlice({
         state.orderedData = state.orderedData?.filter(
           (item) => item._id !== action.payload._id
         );
+        console.log(state.orderedData);
         toast.error("You have deleted this order!");
       })
       .addCase(deleteUserOrder.rejected, (state, action) => {
