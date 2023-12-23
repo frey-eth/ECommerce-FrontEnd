@@ -44,11 +44,29 @@ const Home = () => {
             style={window.innerWidth >= 764 ? { maxWidth: "50%" } : {}}
           >
             <div className="main-banner position-relative">
-              <img
-                src="/images/main-banner-1.jpg"
-                alt="main banner"
-                className="img-fluid rounded-3"
-              />
+              <div
+                id="carouselExampleAutoplaying"
+                className="carousel slide"
+                data-bs-ride="carousel"
+              >
+                <div className="carousel-inner">
+                  <div className="carousel-item active" data-bs-interval="2000">
+                    <img
+                      src="/images/main-banner-1.jpg"
+                      alt="main banner"
+                      className="img-fluid rounded-3"
+                    />
+                  </div>
+                  <div className="carousel-item" >
+                    <img
+                      src="/images/main-banner.jpg"
+                      alt="main banner"
+                      className="img-fluid rounded-3"
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div className="main-banner-content position-absolute">
                 <h4>SUPERCHARGED FOR PROS.</h4>
                 <h5>iPad 13 Pro</h5>
