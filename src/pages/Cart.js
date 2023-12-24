@@ -23,6 +23,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserOrder());
+    dispatch(getUserCart());
   }, []);
   const cartState = useSelector((state) => state.auth.cartProducts);
   const orderState = useSelector((state) => state.auth.orderedData);
@@ -159,11 +160,11 @@ const Cart = () => {
           <h6 className="">YOUR ORDERED</h6>
           <div className="d-flex flex-column">
             {orderState?.map((order) => (
-              <div className="d-flex justify-content-between align-items-center">
-                <div
-                  key={order._id}
-                  className="order-item my-1 border-2 bg-white rounded-2 justify-content-between d-flex flex-row align-items-center w-100"
-                >
+              <div
+                key={order._id}
+                className="d-flex justify-content-between align-items-center"
+              >
+                <div className="order-item my-1 border-2 bg-white rounded-2 justify-content-between d-flex flex-row align-items-center w-100">
                   <div>
                     {order?.orderItems?.map((item) => (
                       <div
