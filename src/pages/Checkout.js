@@ -375,6 +375,10 @@ const Checkout = () => {
               <p className="total">Discount</p>
               <p className="total-price">{discount}%</p>
             </div>
+             <div className="d-flex justify-content-between justify-content-center mt-2">
+              <p className="total">Payment Methods</p>
+              <p className="total-price">COD</p>
+            </div>
             <div className="d-flex justify-content-between justify-content-center mt-2">
               <p className="total">Total After Discount</p>
               <p className="total-price">
