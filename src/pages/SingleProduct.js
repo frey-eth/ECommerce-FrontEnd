@@ -96,6 +96,10 @@ const SingleProduct = () => {
     onSubmit: (values) => {
       dispatch(rating(values));
       formik.resetForm();
+      toast.success("You have posted a review for this product!!");
+      setTimeout(() => {
+        window.location.reload(); // Reload the page
+      }, 3000);
     },
   });
 
@@ -335,7 +339,7 @@ const SingleProduct = () => {
                         <ReactStars
                           count={5}
                           size={20}
-                          value={3}
+                          value={0}
                           edit={true}
                           onChange={(newRating) =>
                             formik.setFieldValue("star", newRating)
