@@ -2,7 +2,8 @@ import axios from "axios";
 import { baseUrl } from "../../utils/axiosConfig";
 
 const getCoupon = async () => {
-  const response = await axios.get(`${baseUrl}coupon/`);
+  const response = await axios.get(`${baseUrl}coupon`);
+  console.log(response.data);
   return response.data;
 };
 const couponService = {

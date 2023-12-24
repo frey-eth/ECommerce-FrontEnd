@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
-import couponService from "../contact/contactService";
+import couponService from "./couponService";
 
 export const getCoupons = createAsyncThunk("Coupon/get", async (thunkAPi) => {
   try {
