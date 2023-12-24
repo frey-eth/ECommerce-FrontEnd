@@ -15,11 +15,19 @@ import {
   addToWishList,
   getAllProducts,
   getProduct,
+  rating,
 } from "../features/products/productSlice";
 import Loading from "../components/Loading";
 import { getTokenFromLocalStorage } from "../utils/axiosConfig";
 import { addProductToCart, getUserCart } from "../features/user/userSlice";
 import { toast } from "react-toastify";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
+const reviewSchema = Yup.object({
+  comment: Yup.string().required("At least 10 letters"),
+  star: Yup.number().required("Your Rating"),
+});
 
 const SingleProduct = () => {
   const [orderedProduct, setOrderedProduct] = useState(true);
@@ -53,7 +61,6 @@ const SingleProduct = () => {
   const popularProducts = productState.products.filter(
     (product) => product.tag == "popular"
   );
-
   useEffect(() => {
     for (let idx = 0; idx < cartState?.length; idx++) {
       if (productId === cartState[idx]?.productId?._id) {
@@ -77,6 +84,20 @@ const SingleProduct = () => {
     zoomWidth: 600,
     img: productData?.images[0].url,
   };
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      prodID: productId,
+      comment: "",
+      star: 0,
+    },
+    validationSchema: reviewSchema,
+    onSubmit: (values) => {
+      dispatch(rating(values));
+      formik.resetForm();
+    },
+  });
 
   return (
     <>
@@ -284,11 +305,13 @@ const SingleProduct = () => {
                         <ReactStars
                           count={5}
                           size={24}
-                          value={3}
+                          value={productData?.totalRating * 1}
                           edit={false}
                           activeColor="#ffd700"
                         />
-                        <p className="mb-0">Based on 2 Reviews</p>
+                        <p className="mb-0">
+                          Based on {productData?.ratings?.length} Reviews
+                        </p>
                       </div>
                     </div>
                     {orderedProduct && (
@@ -303,7 +326,10 @@ const SingleProduct = () => {
                     )}
                   </div>
                   <div className="review-form py-4">
-                    <form action="" className="d-flex flex-column gap-15">
+                    <form
+                      onSubmit={formik.handleSubmit}
+                      className="d-flex flex-column gap-15"
+                    >
                       <h4>Write a Review</h4>
                       <div>
                         <ReactStars
@@ -311,51 +337,48 @@ const SingleProduct = () => {
                           size={20}
                           value={3}
                           edit={true}
+                          onChange={(newRating) =>
+                            formik.setFieldValue("star", newRating)
+                          }
                           activeColor="#ffd700"
                         />
                       </div>
                       <div>
                         <textarea
-                          name=""
-                          id=""
+                          name="comment"
+                          id="comment"
                           cols="30"
                           rows="10"
                           className="form-control w-100"
                           placeholder="Comment"
+                          onChange={formik.handleChange}
+                          value={formik.values.comment}
+                          onBlur={formik.handleBlur}
                         ></textarea>
                       </div>
                       <div>
-                        <button className="button">Submit Review</button>
+                        <button className="button" type="submit">
+                          Submit Review
+                        </button>
                       </div>
                     </form>
                   </div>
                   <div className="reviews">
-                    <div className="review">
-                      <div className="d-flex gap-10 align-items-center">
-                        <h6 className="mb-0">Pham Van Duong</h6>
-                        <ReactStars
-                          count={5}
-                          size={15}
-                          value={3}
-                          edit={false}
-                          activeColor="#ffd700"
-                        />
+                    {productData?.ratings?.map((review, idx) => (
+                      <div className="review" key={idx}>
+                        <div className="d-flex gap-10 align-items-center">
+                          <h6 className="mb-0">{review.postedBy.name}</h6>
+                          <ReactStars
+                            count={5}
+                            size={15}
+                            value={review.star}
+                            edit={false}
+                            activeColor="#ffd700"
+                          />
+                        </div>
+                        <p className="mt-4">{review.comment}</p>
                       </div>
-                      <p className="mt-4">This product is very helpful</p>
-                    </div>
-                    <div className="review">
-                      <div className="d-flex gap-10 align-items-center">
-                        <h6 className="mb-0">Nguyen Ngoc Dieu Linh</h6>
-                        <ReactStars
-                          count={5}
-                          size={15}
-                          value={5}
-                          edit={false}
-                          activeColor="#ffd700"
-                        />
-                      </div>
-                      <p className="mt-4">I really like that</p>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -368,8 +391,8 @@ const SingleProduct = () => {
               </div>
               <div className="d-flex flex-row flex-wrap">
                 {popularProducts.slice(0, 4).map((product) => (
-                  <div className="d-flex w-25">
-                    <ProductCard key={product._id} data={product} />
+                  <div className="d-flex w-25" key={product._id}>
+                    <ProductCard data={product} />
                   </div>
                 ))}
               </div>
