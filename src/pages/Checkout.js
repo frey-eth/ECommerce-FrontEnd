@@ -356,7 +356,7 @@ const Checkout = () => {
                       onClick={() => {
                         let foundDiscount = 0;
                         couponState?.some((item) => {
-                          if (item?.name == coupon) {
+                          if (item?.name === coupon) {
                             foundDiscount = item?.discount;
                             return true;
                           }

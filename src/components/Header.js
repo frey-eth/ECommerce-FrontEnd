@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserCart } from "../features/user/userSlice";
+import {  useSelector } from "react-redux";
 import { Typeahead } from "react-bootstrap-typeahead"; // ES2015
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
 export const Header = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartState = useSelector((state) => state.auth.cartProducts);
   const authState = useSelector((state) => state?.auth);
