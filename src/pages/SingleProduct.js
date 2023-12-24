@@ -339,7 +339,6 @@ const SingleProduct = () => {
                         <ReactStars
                           count={5}
                           size={20}
-                          value={0}
                           edit={true}
                           onChange={(newRating) =>
                             formik.setFieldValue("star", newRating)
